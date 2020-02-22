@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - EV database</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <section>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <h5 class="my-0 mr-md-auto font-weight-normal">Logo</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="#">Browse Cars</a>
+                <a class="p-2 text-dark" href="#">Compare Cars</a>
+                <a class="p-2 text-dark" href="#">Contact</a>
+            </nav>
+            <a class="btn btn-outline-primary" href="#">Sign up</a>
+        </div>
+    </section>
+
+    <!-- Hero -->
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <!-- LEFT SIDE OF THE HERO -->
+                <div class="col">
+                    <h1 class="display-3">Looking for an Electric Vehicle?</h1>
+                    <p class="lead">We help one of Griffith's College Big Data student find and
+                        compare electric vehicles on a yearly basis</p>
+                </div>
+
+                <!-- RIGHT SIDE OF THE HERO -->
+                <div class="col"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
+    <section>
+
+        <div class="container">
+            <form>
+                <!-- TOP ROW OF FORM -->
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="vehicleName">Vehicle Name</label>
+                        <input type="text" class="form-control" id="vehicleName">
+                    </div>
+                    <div class="col form-group">
+                        <label for="manufacturer">Manufacturer</label>
+                        <input type="text" class="form-control" id="manufacturer">
+                    </div>
+                    <div class="col form-group">
+                        <label for="year">Year</label>
+                        <input type="date" class="form-control" id="year">
+                    </div>
+                    <div class="col form-group">
+                        <label for="batterySize">Battery size (Kwh)</label>
+                        <input type="number" class="form-control" id="batterySize">
+                    </div>
+                </div>
+
+                <!-- BOTTOM ROW OF FORM -->
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="range">WLTP range (Km)</label>
+                        <input type="number" class="form-control" id="range">
+                    </div>
+                    <div class="col form-group">
+                        <label for="cost">Cost</label>
+                        <input type="number" class="form-control" id="cost">
+                    </div>
+                    <div class="col form-group">
+                        <label for="power">Power (Kw)</label>
+                        <input type="number" class="form-control" id="power">
+                    </div>
+                    <div class="col form-group">
+                        <label></label>
+                        <input type="submit" class="form-control btn btn-primary" value="Search">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+    
+    <!-- FEATURED VEHICLES SECTION -->
+    <section>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+    </section>
+
+
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>
