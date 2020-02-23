@@ -1,0 +1,50 @@
+body{
+    color: #121D49;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+.login-button{
+    background: white;
+    color: #1B62FB;
+    width: 100px;
+    font-weight: 600;
+    margin: 0 30px;
+}
+
+.hero-image-style:before{
+    content: '';
+    position: absolute;
+    bottom: -70%;
+    left: 1px;
+    width: 133%;
+    height: 250%;
+    border-radius: 50% 0 0 50%/100% 0 0 100%;
+    background-image: linear-gradient(to bottom, rgba(27, 98, 251, 0.7), rgba(27, 98, 251, 0.7)),
+        url('../img/hero02.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -999;
+}
+
+.header-text{
+    color: #1B62FB;
+    font-weight: 500;
+}
+
+.form-section-style{
+    margin: 50px 0;
+}
+
+.bottom-hero {
+    margin-top: 100px;
+    padding: 250px 0;
+    background-image: linear-gradient(to bottom, rgba(27, 98, 251, 0.7), rgba(27, 98, 251, 0.7)),
+        url('../img/Tesla-Model-S-X-3-hero.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
