@@ -2,13 +2,27 @@ body{
     color: #121D49;
 }
 
-.navbar .navbar-nav .nav-link {
+
+.navbar .navbar-nav .nav-link .nav-homepage{
     color: #ffffff;
+}
+
+.navbar .navbar-nav .nav-link {
+    /*color: #ffffff;*/
+    color: #1B62FB;
 }
 
 .login-button{
     background: white;
     color: #1B62FB;
+    width: 100px;
+    font-weight: 600;
+    margin: 0 30px;
+}
+
+.logout-button{
+    background-color: #1B62FB;
+    color: white;
     width: 100px;
     font-weight: 600;
     margin: 0 30px;
@@ -40,7 +54,7 @@ body{
 }
 
 .bottom-hero {
-    margin-top: 100px;
+    /*margin-top: 100px;*/
     padding: 250px 0;
     background-image: linear-gradient(to bottom, rgba(27, 98, 251, 0.7), rgba(27, 98, 251, 0.7)),
         url('../img/Tesla-Model-S-X-3-hero.jpg');
