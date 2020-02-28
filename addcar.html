@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVHub - Browse Cars</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+
+</head>
+
+<body style="background: whitesmoke;">
+
+<!-- NAVIGATION BAR -->
+<section>
+
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white static-top">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" style="color: #1B62FB;" href="/">EVHub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Browse Cars</a>
+                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#">Add Car</a>-->
+<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="btn logout-button" href="{{ url }}">{{ login_status }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+<!-- END NAVIGATION BAR -->
+
+{% if user %}
+<!-- FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
+<section class="form-section-style">
+
+    <div class="container border p-4 bg-white">
+        <form method="post" action="/addcar">
+            <!-- TOP ROW OF FORM -->
+            <div class="row">
+                <div class="col form-group">
+                    <label for="vehicleName">Vehicle Name</label>
+                    <input class="form-control" id="vehicleName" type="text" name="vehicle_name" value="{{ vehicle_name }}">
+                </div>
+                <div class="col form-group">
+                    <label for="manufacturer">Manufacturer</label>
+                    <input class="form-control" id="manufacturer" type="text" name="vehicle_manufacturer" value="{{ vehicle_manufacturer }}">
+                </div>
+                <div class="col form-group">
+                    <label for="year">Year</label>
+                    <input class="form-control" id="year" type="number" name="vehicle_year" value="{{ vehicle_year }}">
+                </div>
+                <div class="col form-group">
+                    <label for="batterySize">Battery size (Kwh)</label>
+                    <input class="form-control" id="batterySize" type="number" step="any" name="vehicle_batterySize" value="{{ vehicle_batterySize }}">
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW OF FORM -->
+            <div class="row">
+                <div class="col form-group">
+                    <label for="WLTP_range">WLTP range (Km)</label>
+                    <input class="form-control" id="WLTP_range" type="number" name="vehicle_WLTP_range" value="{{ vehicle_WLTP_range }}">
+                </div>
+                <div class="col form-group">
+                    <label for="cost">Cost</label>
+                    <input class="form-control" id="cost" type="number" name="vehicle_cost" value="{{ vehicle_cost }}">
+                </div>
+                <div class="col form-group">
+                    <label for="power">Power (Kw)</label>
+                    <input class="form-control" id="power" type="number" name="vehicle_power" value="{{ vehicle_power }}">
+                </div>
+                <div class="col form-group">
+                    <label></label>
+                    <input class="form-control btn btn-primary" type="submit" name="add-car-button" value="Submit">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+<!-- END FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
+
+{% else %}
+    <p>Hello Guest, welcome to the application</p>
+    <p>You can {{ login_status }} <a href='{{ url }}'>here</a> </p>
+{% endif %}
+<section>
+    {{ success_message }}
+</section>
+
+
+<script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script src="js/popper.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

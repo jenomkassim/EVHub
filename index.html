@@ -15,7 +15,7 @@
 <section>
     <!--Navbar -->
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
-        <a class="navbar-brand font-weight-bold" style="color: #1B62FB;" href="#">EVHub</a>
+        <a class="navbar-brand font-weight-bold" style="color: #1B62FB;" href="/">EVHub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
                 aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Browse Cars</a>
+                    <a class="nav-link" href="/browse-cars" style="color: white">Browse Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addcar" style="color: white">Add Cars</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" style="color: white">Compare Cars</a>
@@ -74,7 +77,7 @@
 <section class="form-section-style">
 
     <div class="container border p-4 bg-white">
-        <form>
+        <form method="get">
             <!-- TOP ROW OF FORM -->
             <div class="row">
                 <div class="col form-group">

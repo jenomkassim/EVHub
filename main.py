@@ -5,6 +5,7 @@ import webapp2
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
+from addcar import AddCar
 from myuser import MyUser
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -53,5 +54,7 @@ class MainPage(webapp2.RequestHandler):
 
 # starts the application
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', MainPage),
+    ('/addcar', AddCar),
+    # ('/displaycars', DisplayCars)
 ], debug=True)
