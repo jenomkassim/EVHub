@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Browse Cars</a>
+                        <a class="nav-link" href="/search-cars">Search Cars</a>
                     </li>
 <!--                    <li class="nav-item">-->
 <!--                        <a class="nav-link" href="#">Add Car</a>-->
@@ -53,19 +53,23 @@
             <div class="row">
                 <div class="col form-group">
                     <label for="vehicleName">Vehicle Name</label>
-                    <input class="form-control" id="vehicleName" type="text" name="vehicle_name" value="{{ vehicle_name }}">
+                    <input class="form-control" id="vehicleName" name="vehicle_name" required type="text"
+                           value="{{ vehicle_name }}">
                 </div>
                 <div class="col form-group">
                     <label for="manufacturer">Manufacturer</label>
-                    <input class="form-control" id="manufacturer" type="text" name="vehicle_manufacturer" value="{{ vehicle_manufacturer }}">
+                    <input class="form-control" id="manufacturer" name="vehicle_manufacturer" required type="text"
+                           value="{{ vehicle_manufacturer }}">
                 </div>
                 <div class="col form-group">
                     <label for="year">Year</label>
-                    <input class="form-control" id="year" type="number" name="vehicle_year" value="{{ vehicle_year }}">
+                    <input class="form-control" id="year" name="vehicle_year" required type="number"
+                           value="{{ vehicle_year }}">
                 </div>
                 <div class="col form-group">
                     <label for="batterySize">Battery size (Kwh)</label>
-                    <input class="form-control" id="batterySize" type="number" step="any" name="vehicle_batterySize" value="{{ vehicle_batterySize }}">
+                    <input class="form-control" id="batterySize" name="vehicle_batterySize" required step="any"
+                           type="number" value="{{ vehicle_batterySize }}">
                 </div>
             </div>
 
@@ -73,15 +77,18 @@
             <div class="row">
                 <div class="col form-group">
                     <label for="WLTP_range">WLTP range (Km)</label>
-                    <input class="form-control" id="WLTP_range" type="number" name="vehicle_WLTP_range" value="{{ vehicle_WLTP_range }}">
+                    <input class="form-control" id="WLTP_range" name="vehicle_WLTP_range" required type="number"
+                           value="{{ vehicle_WLTP_range }}">
                 </div>
                 <div class="col form-group">
                     <label for="cost">Cost</label>
-                    <input class="form-control" id="cost" type="number" name="vehicle_cost" value="{{ vehicle_cost }}">
+                    <input class="form-control" id="cost" name="vehicle_cost" required type="number"
+                           value="{{ vehicle_cost }}">
                 </div>
                 <div class="col form-group">
                     <label for="power">Power (Kw)</label>
-                    <input class="form-control" id="power" type="number" name="vehicle_power" value="{{ vehicle_power }}">
+                    <input class="form-control" id="power" name="vehicle_power" required type="number"
+                           value="{{ vehicle_power }}">
                 </div>
                 <div class="col form-group">
                     <label></label>
@@ -90,17 +97,41 @@
             </div>
 
         </form>
+
+        <div>
+            <p class="lead text-danger" name="error_message">{{ error_message }}</p>
+        </div>
     </div>
 
 </section>
 <!-- END FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
 
 {% else %}
-    <p>Hello Guest, welcome to the application</p>
+<p>Hello Guest, welcome to the application. You cannot add cars to the application except you are logged in</p>
     <p>You can {{ login_status }} <a href='{{ url }}'>here</a> </p>
 {% endif %}
 <section>
     {{ success_message }}
+    {{ error_message }}
+</section>
+
+<section>
+    <!--We will print the list of addresses that are attached to this user-->
+    {% for i in vehicles %}
+    Address {{ loop.index }} <br/>
+    Line 1: {{ i.name }} <br/>
+    Line 2: {{ i.manufacturer }} <br/>
+    Line 3: {{ i.year }} <br/>
+    Line 4: {{ i.batterySize }} <br/>
+    Line 4: {{ i.WLTP_range }} <br/>
+    Line 4: {{ i.cost }} <br/>
+    Line 4: {{ i.power }} <br/>
+    <br/>
+    <form action="/" method="post">
+        <input name="index" type="hidden" value="{{ loop.index - 1 }}"/>
+        <input name="button" type="submit" value="Delete"/>
+    </form>
+    {% endfor %}
 </section>
 
 

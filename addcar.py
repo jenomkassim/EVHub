@@ -50,8 +50,22 @@ class AddCar(webapp2.RequestHandler):
             newCar.cost = int(self.request.get('vehicle_cost'))
             newCar.power = int(self.request.get('vehicle_power'))
 
-            newCar.put()
-            success_message = "Car Added To The Database Successfully"
+            car_query = Vehicles.query()
+            query = car_query.filter(Vehicles.name == newCar.name, Vehicles.manufacturer == newCar.manufacturer,
+                                     Vehicles.year == newCar.year).fetch()
+
+            if len(query) == 0:
+                newCar.put()
+                self.redirect('/addcar')
+            else:
+                # error_message = 'Car Exists In The Database'
+                self.response.write('Car Exists In The Database')
+                # self.redirect('/addcar')
+
+            #
+            # success_message = "Car Added To The Database Successfully"
+            #
+
 
         template_values = {
             'vehicle_name': newCar.name,
@@ -61,7 +75,8 @@ class AddCar(webapp2.RequestHandler):
             'vehicle_WLTP_range': newCar.WLTP_range,
             'vehicle_cost': newCar.cost,
             'vehicle_power': newCar.power,
-            'success_message': success_message
+            # 'error_message': error_message
+            # 'success_message': success_message
         }
 
         template = JINJA_ENVIRONMENT.get_template('addcar.html')

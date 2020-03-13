@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/browse-cars" style="color: white">Browse Cars</a>
+                    <a class="nav-link" href="/search-cars" style="color: white">Search Cars</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/addcar" style="color: white">Add Cars</a>
@@ -77,44 +77,79 @@
 <section class="form-section-style">
 
     <div class="container border p-4 bg-white">
-        <form method="get">
+        <form action="/browse-cars" method="post">
             <!-- TOP ROW OF FORM -->
             <div class="row">
                 <div class="col form-group">
                     <label for="vehicleName">Vehicle Name</label>
-                    <input class="form-control" id="vehicleName" type="text">
+                    <input class="form-control" id="vehicleName" name="vehicleName" type="text">
                 </div>
                 <div class="col form-group">
                     <label for="manufacturer">Manufacturer</label>
-                    <input class="form-control" id="manufacturer" type="text">
+                    <input class="form-control" id="manufacturer" name="manufacturer" type="text">
                 </div>
                 <div class="col form-group">
-                    <label for="year">Year</label>
-                    <input class="form-control" id="year" type="date">
+                    <label for="lower-year">Year</label>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" id="lower-year" name="lower-year" type="number">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="upper-year" name="upper-year" type="number">
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
-                    <label for="batterySize">Battery size (Kwh)</label>
-                    <input class="form-control" id="batterySize" type="number">
+                    <label for="battery-lower">Battery size (Kwh)</label>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" id="battery-lower" name="battery-lower" type="number">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="battery-upper" name="battery-upper" type="number">
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- BOTTOM ROW OF FORM -->
             <div class="row">
                 <div class="col form-group">
-                    <label for="range">WLTP range (Km)</label>
-                    <input class="form-control" id="range" type="number">
+                    <label for="range-lower">WLTP range (Km)</label>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" id="range-lower" name="range-lower" type="number">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="range-upper" name="range-upper" type="number">
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
-                    <label for="cost">Cost</label>
-                    <input class="form-control" id="cost" type="number">
+                    <label for="cost-lower">Cost</label>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" id="cost-lower" name="cost-lower" type="number">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="cost-upper" name="cost-upper" type="number">
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
-                    <label for="power">Power (Kw)</label>
-                    <input class="form-control" id="power" type="number">
+                    <label for="power-lower">Power (Kw)</label>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" id="power-lower" name="power-lower" type="number">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" id="power-upper" name="power-upper" type="number">
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
                     <label></label>
-                    <input class="form-control btn btn-primary" type="submit" value="Search">
+                    <input class="form-control btn btn-primary" name="button" type="submit" value="Search">
                 </div>
             </div>
 
