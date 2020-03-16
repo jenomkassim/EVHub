@@ -119,23 +119,88 @@
 <!--Modal-->
 
 <!-- Modal -->
-<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" role="dialog"
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade bd-example-modal-lg" id="exampleModal"
+     role="dialog"
      tabindex="-1">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
+            <div class="modal-body">
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <!-- FORM FOR ADDING CAR TO THE DATABASE FOR THE ELECTRIC VEHICLES -->
+                <section class="form-section-style">
+
+                    <div class="container border p-4 bg-white">
+                        <form action="/addcar" method="post">
+                            <!-- TOP ROW OF FORM -->
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="vehicleName">Vehicle Name</label>
+                                    <input class="form-control" id="vehicleName" name="vehicle_name" required
+                                           type="text"
+                                           value="{{ vehicle_name }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="manufacturer">Manufacturer</label>
+                                    <input class="form-control" id="manufacturer" name="vehicle_manufacturer" required
+                                           type="text"
+                                           value="{{ vehicle_manufacturer }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="year">Year</label>
+                                    <input class="form-control" id="year" name="vehicle_year" required type="number"
+                                           value="{{ vehicle_year }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="batterySize">Battery size (Kwh)</label>
+                                    <input class="form-control" id="batterySize" name="vehicle_batterySize" required
+                                           step="any"
+                                           type="number" value="{{ vehicle_batterySize }}">
+                                </div>
+                            </div>
+
+                            <!-- BOTTOM ROW OF FORM -->
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="WLTP_range">WLTP range (Km)</label>
+                                    <input class="form-control" id="WLTP_range" name="vehicle_WLTP_range" required
+                                           type="number"
+                                           value="{{ vehicle_WLTP_range }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="cost">Cost</label>
+                                    <input class="form-control" id="cost" name="vehicle_cost" required type="number"
+                                           value="{{ vehicle_cost }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="power">Power (Kw)</label>
+                                    <input class="form-control" id="power" name="vehicle_power" required type="number"
+                                           value="{{ vehicle_power }}">
+                                </div>
+                                <div class="col form-group">
+                                    <label></label>
+                                    <input class="form-control btn btn-primary" name="add-car-button" type="submit"
+                                           value="Submit">
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div>
+                            <p class="lead text-danger" name="error_message">{{ error_message }}</p>
+                        </div>
+                    </div>
+
+                </section>
+                <!-- END FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
-                <button class="btn btn-primary" type="button">Save changes</button>
-            </div>
+
+            <!--            <div class="modal-footer">-->
+            <!--                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>-->
+            <!--                <button class="btn btn-primary" type="button">Save changes</button>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>

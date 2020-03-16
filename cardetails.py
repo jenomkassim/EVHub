@@ -3,8 +3,7 @@ import os
 import jinja2
 import webapp2
 from google.appengine.api import users
-
-from vehicles import Vehicles
+from google.appengine.ext import ndb
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -28,8 +27,12 @@ class CarDetails(webapp2.RequestHandler):
             url = users.create_login_url(self.request.uri)
             login_status = 'Login'
 
-        idd = int(self.request.get('id'))
-        car_deets = Vehicles.get_by_id(idd)
+        # idd = int(self.request.get('id'))
+        idd = self.request.get('id')
+        hi = ndb.Key(urlsafe=idd)
+        car_id = hi.id()
+
+        car_deets = ndb.Key('Vehicles', car_id).get()
 
         template_values = {
             'user': user,
