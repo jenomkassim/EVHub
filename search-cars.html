@@ -182,7 +182,8 @@
                         <img alt="" class="img-fluid rounded" src="img/tesla_ms.jpg">
                     </div>
                     <div class="col">
-                        <h5 class="font-weight-bold">{{ i.manufacturer }} {{ i.name }}</h5>
+                        <a href="/car-details?id={{ i.key.id() }}"><h5 class="font-weight-bold">{{ i.manufacturer }} {{
+                            i.name }}</h5></a>
                         <!-- TOP ROW -->
                         <div class="row">
                             <div class="col">

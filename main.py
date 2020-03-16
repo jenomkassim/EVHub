@@ -6,6 +6,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 from addcar import AddCar
+from cardetails import CarDetails
 from myuser import MyUser
 from searchcars import SearchCars
 from vehicles import Vehicles
@@ -80,5 +81,6 @@ class MainPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/addcar', AddCar),
-    ('/search-cars', SearchCars)
+    ('/search-cars', SearchCars),
+    ('/car-details', CarDetails)
 ], debug=True)
