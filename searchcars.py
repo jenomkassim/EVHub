@@ -50,6 +50,17 @@ class SearchCars(webapp2.RequestHandler):
     def post(self):
         self.response.headers['Content-Type'] = 'text/html'
 
+        url = ''
+        login_status = ''
+        user = users.get_current_user()
+
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            login_status = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            login_status = 'Login'
+
         action = self.request.get('Search')
         count = 0
 
@@ -69,17 +80,17 @@ class SearchCars(webapp2.RequestHandler):
 
         # Values if empty
         if len(lower_year) == 0:
-            lower_year = int(2015)
+            lower_year = int(2010)
         if len(upper_year) == 0:
-            upper_year = int(2020)
+            upper_year = int(2022)
         if len(battery_lower) == 0:
             battery_lower = float(50)
         if len(battery_upper) == 0:
-            battery_upper = float(250)
+            battery_upper = float(550)
         if len(range_lower) == 0:
-            range_lower = 300
+            range_lower = 200
         if len(range_upper) == 0:
-            range_upper = 650
+            range_upper = 850
         if len(cost_lower) == 0:
             cost_lower = int(20000)
         if len(cost_upper) == 0:
@@ -90,48 +101,48 @@ class SearchCars(webapp2.RequestHandler):
             power_upper = int(300)
 
         # Year Comparison
-        if int(lower_year) >= 2015 and int(lower_year) <= 2020:
+        if int(lower_year) >= 2010 and int(lower_year) <= 2022:
             year_lower_error_message = ''
             year_lower_error_style = ''
         else:
-            year_lower_error_message = 'Year is below 2015 or above 2020'
+            year_lower_error_message = 'Year is below 2010 or above 2022'
             year_lower_error_style = 'error_style'
 
-        if int(upper_year) >= 2015 and int(upper_year) <= 2020:
+        if int(upper_year) >= 2010 and int(upper_year) <= 2022:
             year_higher_error_message = ''
             year_higher_error_style = ''
         else:
-            year_higher_error_message = 'Year is below 2015 or above 2020'
+            year_higher_error_message = 'Year is below 2010 or above 2022'
             year_higher_error_style = 'error_style'
 
         # Battery Comparison
-        if float(battery_lower) >= 50.0 and float(battery_lower) <= 250.0:
+        if float(battery_lower) >= 50.0 and float(battery_lower) <= 550.0:
             battery_lower_error_message = ''
             battery_lower_error_style = ''
         else:
-            battery_lower_error_message = 'Battery size is below 50.0Kwh or above 250.0Kwh'
+            battery_lower_error_message = 'Battery size is below 50.0Kwh or above 550.0Kwh'
             battery_lower_error_style = 'error_style'
 
-        if float(battery_upper) >= 50.0 and float(battery_upper) <= 250.0:
+        if float(battery_upper) >= 50.0 and float(battery_upper) <= 550.0:
             battery_higher_error_message = ''
             battery_higher_error_style = ''
         else:
-            battery_higher_error_message = 'Battery size is below 50.0Kwh or above 250.0Kwh'
+            battery_higher_error_message = 'Battery size is below 50.0Kwh or above 550.0Kwh'
             battery_higher_error_style = 'error_style'
 
         # Range Comparison
-        if int(range_lower) >= 300 and int(range_lower) <= 650:
+        if int(range_lower) >= 200 and int(range_lower) <= 850:
             range_lower_error_message = ''
             range_lower_error_style = ''
         else:
-            range_lower_error_message = 'Range is below 300km or above 650km'
+            range_lower_error_message = 'Range is below 200km or above 850km'
             range_lower_error_style = 'error_style'
 
-        if int(range_upper) >= 300 and int(range_upper) <= 650:
+        if int(range_upper) >= 200 and int(range_upper) <= 850:
             range_higher_error_message = ''
             range_higher_error_style = ''
         else:
-            range_higher_error_message = 'Range is below 300km or above 650km'
+            range_higher_error_message = 'Range is below 200km or above 850km'
             range_higher_error_style = 'error_style'
 
         # Cost Comparison
@@ -219,6 +230,10 @@ class SearchCars(webapp2.RequestHandler):
                 count = count + 1
 
         template_values = {
+            'user': user,
+            'url': url,
+            'login_status': login_status,
+
             'name': name,
             'manufacturer': manufacturer,
             'lower_year': lower_year,

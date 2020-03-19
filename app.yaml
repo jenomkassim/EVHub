@@ -1,13 +1,16 @@
+#RUNTIME USED
 runtime: python27
 api_version: 1
 threadsafe: true
 
+#LIBRARIES USED
 libraries:
-  - name: webapp2
-    version: latest
+  #  - name: webapp2
+  #    version: latest
   - name: jinja2
     version: latest
 
+#ROUTES FOR THE STATIC ASSETS USED
 handlers:
   - url: /css
     static_dir: css

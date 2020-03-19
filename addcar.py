@@ -38,6 +38,22 @@ class AddCar(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
+        self.response.headers['Content-Type'] = 'text/html'
+
+        url = ''
+        login_status = ''
+        error_message = ''
+        success_message = ''
+
+        user = users.get_current_user()
+
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            login_status = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            login_status = 'Login'
+
         if self.request.get('add-car-button') == 'Submit':
 
             newCar = Vehicles()
@@ -56,10 +72,11 @@ class AddCar(webapp2.RequestHandler):
 
             if len(query) == 0:
                 newCar.put()
-                self.redirect('/addcar')
+                success_message = 'Car Successfully Added To The Database'
+                # self.redirect('/addcar')
             else:
-                # error_message = 'Car Exists In The Database'
-                self.response.write('Car Exists In The Database')
+                error_message = 'Car Exists In The Database'
+                # self.response.write('Car Exists In The Database')
                 # self.redirect('/addcar')
 
             #
@@ -68,6 +85,9 @@ class AddCar(webapp2.RequestHandler):
 
 
         template_values = {
+            'user': user,
+            'url': url,
+            'login_status': login_status,
             'vehicle_name': newCar.name,
             'vehicle_manufacturer': newCar.manufacturer,
             'vehicle_year': newCar.year,
@@ -75,8 +95,8 @@ class AddCar(webapp2.RequestHandler):
             'vehicle_WLTP_range': newCar.WLTP_range,
             'vehicle_cost': newCar.cost,
             'vehicle_power': newCar.power,
-            # 'error_message': error_message
-            # 'success_message': success_message
+            'error_message': error_message,
+            'success_message': success_message
         }
 
         template = JINJA_ENVIRONMENT.get_template('addcar.html')
