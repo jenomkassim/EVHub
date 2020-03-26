@@ -148,16 +148,32 @@
                 <p class="lead" style="font-weight: 500">Name</p>
             </div>
             <div class="col compare-attributes border-right">
+                {% if v1Link %}
+                <a href="/car-details?id={{ v1.key.urlsafe() }}"><p class="lead"> {{ v1.name }} </p></a>
+                {% else %}
                 <p class="lead"> {{ v1.name }} </p>
+                {% endif %}
             </div>
             <div class="col compare-attributes border-right">
+                {% if v2Link %}
+                <a href="/car-details?id={{ v2.key.urlsafe() }}"><p class="lead"> {{ v2.name }} </p></a>
+                {% else %}
                 <p class="lead"> {{ v2.name }} </p>
+                {% endif %}
             </div>
             <div class="col compare-attributes border-right">
+                {% if v3Link %}
+                <a href="/car-details?id={{ v3.key.urlsafe() }}"><p class="lead"> {{ v3.name }} </p></a>
+                {% else %}
                 <p class="lead"> {{ v3.name }} </p>
+                {% endif %}
             </div>
             <div class="col compare-attributes">
+                {% if v4Link %}
+                <a href="/car-details?id={{ v4.key.urlsafe() }}"><p class="lead"> {{ v4.name }} </p></a>
+                {% else %}
                 <p class="lead"> {{ v4.name }} </p>
+                {% endif %}
             </div>
         </div>
 
@@ -243,16 +259,16 @@
                 <p class="lead" style="font-weight: 500">Power</p>
             </div>
             <div class="col compare-attributes border-right">
-                <p class="lead"> {{ v1.power }} </p>
+                <p class="lead {{ PowerStyle1 }}"> {{ v1.power }} </p>
             </div>
             <div class="col compare-attributes border-right">
-                <p class="lead"> {{ v2.power }} </p>
+                <p class="lead {{ PowerStyle2 }}"> {{ v2.power }} </p>
             </div>
             <div class="col compare-attributes border-right">
-                <p class="lead"> {{ v3.power }} </p>
+                <p class="lead {{ PowerStyle3 }}"> {{ v3.power }} </p>
             </div>
             <div class="col compare-attributes">
-                <p class="lead"> {{ v4.power }} </p>
+                <p class="lead {{ PowerStyle4 }}"> {{ v4.power }} </p>
             </div>
         </div>
 

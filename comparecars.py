@@ -66,7 +66,15 @@ class CompareCars(webapp2.RequestHandler):
         RangeStyle2 = ''
         RangeStyle3 = ''
         RangeStyle4 = ''
+        PowerStyle1 = ''
+        PowerStyle2 = ''
+        PowerStyle3 = ''
+        PowerStyle4 = ''
         hasSearched = True
+        v1Link = True
+        v2Link = True
+        v3Link = True
+        v4Link = True
 
         if user:
             url = users.create_logout_url(self.request.uri)
@@ -150,12 +158,16 @@ class CompareCars(webapp2.RequestHandler):
             vr = VehicleResult()
             v3 = vr
             v4 = vr
+            v3Link = False
+            v4Link = False
 
             if len(v1_total_query) != 1:
                 v1 = vrv
+                v1Link = False
 
             if len(v2_total_query) != 1:
                 v2 = vrv
+                v2Link = False
 
             # YEAR MIN AND MAX
             my_list = [v1.year, v2.year]
@@ -185,10 +197,17 @@ class CompareCars(webapp2.RequestHandler):
             min_range_value = min(i for i in my_range_list if i > 0)
             min_range_index = my_range_list.index(min_range_value)
 
-            self.response.write('</br>Max Index = ' + str(max_range_index))
-            self.response.write('</br>Max Range = ' + str(max_range_value))
-            self.response.write('</br>Min Index = ' + str(min_range_index))
-            self.response.write('</br>Min Range = ' + str(min_range_value))
+            # POWER MIN AND MAX
+            my_power_list = [v1.power, v2.power]
+            max_power_value = max(my_power_list)
+            max_power_index = my_power_list.index(max_power_value)
+            min_power_value = min(i for i in my_power_list if i > 0)
+            min_power_index = my_power_list.index(min_power_value)
+
+            self.response.write('</br>Max Index = ' + str(max_power_index))
+            self.response.write('</br>Max Power = ' + str(max_power_value))
+            self.response.write('</br>Min Index = ' + str(min_power_index))
+            self.response.write('</br>Min Power = ' + str(min_power_value))
 
             # YEAR LOGIC FOR STYLING
             if max_index == min_index:
@@ -322,6 +341,39 @@ class CompareCars(webapp2.RequestHandler):
                 v2 = vr
                 RangeStyle2 = ''
 
+            # POWER FOR STYLING
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif max_power_index == 0:
+                PowerStyle1 = 'text-success font-weight-bold'
+            elif max_power_index == 1:
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif max_power_index == 2:
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif max_power_index == 3:
+                PowerStyle4 = 'text-success font-weight-bold'
+
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif min_power_index == 0:
+                PowerStyle1 = 'text-danger font-weight-bold'
+            elif min_power_index == 1:
+                PowerStyle2 = 'text-danger font-weight-bold'
+            elif min_power_index == 2:
+                PowerStyle3 = 'text-danger font-weight-bold'
+            elif min_power_index == 3:
+                PowerStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                PowerStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                PowerStyle2 = ''
+
             template_values = {
                 'user': user,
                 'url': url,
@@ -346,7 +398,15 @@ class CompareCars(webapp2.RequestHandler):
                 'RangeStyle2': RangeStyle2,
                 'RangeStyle3': RangeStyle3,
                 'RangeStyle4': RangeStyle4,
+                'PowerStyle1': PowerStyle1,
+                'PowerStyle2': PowerStyle2,
+                'PowerStyle3': PowerStyle3,
+                'PowerStyle4': PowerStyle4,
                 'hasSearched': hasSearched,
+                'v1Link': v1Link,
+                'v2Link': v2Link,
+                'v3Link': v3Link,
+                'v4Link': v4Link,
                 'error_message': error_message,
                 'success_message': success_message
             }
@@ -360,15 +420,19 @@ class CompareCars(webapp2.RequestHandler):
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v4 = vr
+            v4Link = False
 
             if len(v1_total_query) != 1:
                 v1 = vrv
+                v1Link = False
 
             if len(v2_total_query) != 1:
                 v2 = vrv
+                v2Link = False
 
             if len(v3_total_query) != 1:
                 v3 = vrv
+                v3Link = False
 
             # YEAR LOGIC CALCULATION
             my_list = [v1.year, v2.year, v3.year]
@@ -391,10 +455,24 @@ class CompareCars(webapp2.RequestHandler):
             min_battery_value = min(i for i in my_battery_list if i > 0)
             min_battery_index = my_battery_list.index(min_battery_value)
 
-            self.response.write('</br>Max Index = ' + str(max_battery_index))
-            self.response.write('</br>Max Battery = ' + str(max_battery_value))
-            self.response.write('</br>Min Index = ' + str(min_battery_index))
-            self.response.write('</br>Min Cost = ' + str(min_battery_value))
+            # WLTP RANGE MIN AND MAX
+            my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range]
+            max_range_value = max(my_range_list)
+            max_range_index = my_range_list.index(max_range_value)
+            min_range_value = min(i for i in my_range_list if i > 0)
+            min_range_index = my_range_list.index(min_range_value)
+
+            # POWER MIN AND MAX
+            my_power_list = [v1.power, v2.power, v3.power]
+            max_power_value = max(my_power_list)
+            max_power_index = my_power_list.index(max_power_value)
+            min_power_value = min(i for i in my_power_list if i > 0)
+            min_power_index = my_power_list.index(min_power_value)
+
+            self.response.write('</br>Max Index = ' + str(max_power_index))
+            self.response.write('</br>Max Power = ' + str(max_power_value))
+            self.response.write('</br>Min Index = ' + str(min_power_index))
+            self.response.write('</br>Min Power = ' + str(min_power_value))
 
             # YEAR LOGICAL STYLING
             if max_index == min_index:
@@ -512,6 +590,84 @@ class CompareCars(webapp2.RequestHandler):
                 v3 = vr
                 BatteryStyle3 = ''
 
+            # WLTP RANGE FOR STYLING
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle3 = 'text-success font-weight-bold'
+            elif max_range_index == 0:
+                RangeStyle1 = 'text-success font-weight-bold'
+            elif max_range_index == 1:
+                RangeStyle2 = 'text-success font-weight-bold'
+            elif max_range_index == 2:
+                RangeStyle3 = 'text-success font-weight-bold'
+            elif max_range_index == 3:
+                RangeStyle4 = 'text-success font-weight-bold'
+
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle3 = 'text-success font-weight-bold'
+            elif min_range_index == 0:
+                RangeStyle1 = 'text-danger font-weight-bold'
+            elif min_range_index == 1:
+                RangeStyle2 = 'text-danger font-weight-bold'
+            elif min_range_index == 2:
+                RangeStyle3 = 'text-danger font-weight-bold'
+            elif min_range_index == 3:
+                RangeStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                RangeStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                RangeStyle2 = ''
+
+            if len(v3_total_query) != 1:
+                v3 = vr
+                RangeStyle3 = ''
+
+            # POWER FOR STYLING
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif max_power_index == 0:
+                PowerStyle1 = 'text-success font-weight-bold'
+            elif max_power_index == 1:
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif max_power_index == 2:
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif max_power_index == 3:
+                PowerStyle4 = 'text-success font-weight-bold'
+
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif min_power_index == 0:
+                PowerStyle1 = 'text-danger font-weight-bold'
+            elif min_power_index == 1:
+                PowerStyle2 = 'text-danger font-weight-bold'
+            elif min_power_index == 2:
+                PowerStyle3 = 'text-danger font-weight-bold'
+            elif min_power_index == 3:
+                PowerStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                PowerStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                PowerStyle2 = ''
+
+            if len(v3_total_query) != 1:
+                v3 = vr
+                PowerStyle3 = ''
+
             template_values = {
                 'user': user,
                 'url': url,
@@ -536,7 +692,15 @@ class CompareCars(webapp2.RequestHandler):
                 'RangeStyle2': RangeStyle2,
                 'RangeStyle3': RangeStyle3,
                 'RangeStyle4': RangeStyle4,
+                'PowerStyle1': PowerStyle1,
+                'PowerStyle2': PowerStyle2,
+                'PowerStyle3': PowerStyle3,
+                'PowerStyle4': PowerStyle4,
                 'hasSearched': hasSearched,
+                'v1Link': v1Link,
+                'v2Link': v2Link,
+                'v3Link': v3Link,
+                'v4Link': v4Link,
                 'error_message': error_message,
                 'success_message': success_message
             }
@@ -549,15 +713,19 @@ class CompareCars(webapp2.RequestHandler):
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v3 = vr
+            v3Link = False
 
             if len(v1_total_query) != 1:
                 v1 = vrv
+                v1Link = False
 
             if len(v2_total_query) != 1:
                 v2 = vrv
+                v2Link = False
 
             if len(v4_total_query) != 1:
                 v4 = vrv
+                v4Link = False
 
             # YEAR MIN MAX
             my_list = [v1.year, v2.year, 0, v4.year]
@@ -580,10 +748,24 @@ class CompareCars(webapp2.RequestHandler):
             min_battery_value = min(i for i in my_battery_list if i > 0)
             min_battery_index = my_battery_list.index(min_battery_value)
 
-            self.response.write('</br>Max Index = ' + str(max_battery_index))
-            self.response.write('</br>Max Battery = ' + str(max_battery_value))
-            self.response.write('</br>Min Index = ' + str(min_battery_index))
-            self.response.write('</br>Min Cost = ' + str(min_battery_value))
+            # WLTP RANGE MIN AND MAX
+            my_range_list = [v1.WLTP_range, v2.WLTP_range, 0, v4.WLTP_range]
+            max_range_value = max(my_range_list)
+            max_range_index = my_range_list.index(max_range_value)
+            min_range_value = min(i for i in my_range_list if i > 0)
+            min_range_index = my_range_list.index(min_range_value)
+
+            # POWER MIN AND MAX
+            my_power_list = [v1.power, v2.power, 0, v4.power]
+            max_power_value = max(my_power_list)
+            max_power_index = my_power_list.index(max_power_value)
+            min_power_value = min(i for i in my_power_list if i > 0)
+            min_power_index = my_power_list.index(min_power_value)
+
+            self.response.write('</br>Max Index = ' + str(max_power_index))
+            self.response.write('</br>Max Power = ' + str(max_power_value))
+            self.response.write('</br>Min Index = ' + str(min_power_index))
+            self.response.write('</br>Min Power = ' + str(min_power_value))
 
             if max_index == min_index:
                 yearStyle1 = 'text-success font-weight-bold'
@@ -701,6 +883,84 @@ class CompareCars(webapp2.RequestHandler):
                 v4 = vr
                 BatteryStyle4 = ''
 
+            # WLTP RANGE FOR STYLING
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle4 = 'text-success font-weight-bold'
+            elif max_range_index == 0:
+                RangeStyle1 = 'text-success font-weight-bold'
+            elif max_range_index == 1:
+                RangeStyle2 = 'text-success font-weight-bold'
+            elif max_range_index == 2:
+                RangeStyle3 = 'text-success font-weight-bold'
+            elif max_range_index == 3:
+                RangeStyle4 = 'text-success font-weight-bold'
+
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle4 = 'text-success font-weight-bold'
+            elif min_range_index == 0:
+                RangeStyle1 = 'text-danger font-weight-bold'
+            elif min_range_index == 1:
+                RangeStyle2 = 'text-danger font-weight-bold'
+            elif min_range_index == 2:
+                RangeStyle3 = 'text-danger font-weight-bold'
+            elif min_range_index == 3:
+                RangeStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                RangeStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                RangeStyle2 = ''
+
+            if len(v4_total_query) != 1:
+                v4 = vr
+                RangeStyle4 = ''
+
+            # POWER FOR STYLING
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle4 = 'text-success font-weight-bold'
+            elif max_power_index == 0:
+                PowerStyle1 = 'text-success font-weight-bold'
+            elif max_power_index == 1:
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif max_power_index == 2:
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif max_power_index == 3:
+                PowerStyle4 = 'text-success font-weight-bold'
+
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle4 = 'text-success font-weight-bold'
+            elif min_power_index == 0:
+                PowerStyle1 = 'text-danger font-weight-bold'
+            elif min_power_index == 1:
+                PowerStyle2 = 'text-danger font-weight-bold'
+            elif min_power_index == 2:
+                PowerStyle3 = 'text-danger font-weight-bold'
+            elif min_power_index == 3:
+                PowerStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                PowerStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                PowerStyle2 = ''
+
+            if len(v4_total_query) != 1:
+                v4 = vr
+                PowerStyle4 = ''
+
             template_values = {
                 'user': user,
                 'url': url,
@@ -725,7 +985,15 @@ class CompareCars(webapp2.RequestHandler):
                 'RangeStyle2': RangeStyle2,
                 'RangeStyle3': RangeStyle3,
                 'RangeStyle4': RangeStyle4,
+                'PowerStyle1': PowerStyle1,
+                'PowerStyle2': PowerStyle2,
+                'PowerStyle3': PowerStyle3,
+                'PowerStyle4': PowerStyle4,
                 'hasSearched': hasSearched,
+                'v1Link': v1Link,
+                'v2Link': v2Link,
+                'v3Link': v3Link,
+                'v4Link': v4Link,
                 'error_message': error_message,
                 'success_message': success_message
             }
@@ -740,15 +1008,20 @@ class CompareCars(webapp2.RequestHandler):
 
             if len(v1_total_query) != 1:
                 v1 = vrv
+                v1Link = False
 
             if len(v2_total_query) != 1:
                 v2 = vrv
+                v2Link = False
 
             if len(v3_total_query) != 1:
                 v3 = vrv
+                v3Link = False
 
             if len(v4_total_query) != 1:
                 v4 = vrv
+                v4Link = False
+
 
             my_list = [v1.year, v2.year, v3.year, v4.year]
             max_value = max(my_list)
@@ -770,10 +1043,24 @@ class CompareCars(webapp2.RequestHandler):
             min_battery_value = min(i for i in my_battery_list if i > 0)
             min_battery_index = my_battery_list.index(min_battery_value)
 
-            self.response.write('</br>Max Index = ' + str(max_battery_index))
-            self.response.write('</br>Max Battery = ' + str(max_battery_value))
-            self.response.write('</br>Min Index = ' + str(min_battery_index))
-            self.response.write('</br>Min Cost = ' + str(min_battery_value))
+            # WLTP RANGE MIN AND MAX
+            my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range, v4.WLTP_range]
+            max_range_value = max(my_range_list)
+            max_range_index = my_range_list.index(max_range_value)
+            min_range_value = min(i for i in my_range_list if i > 0)
+            min_range_index = my_range_list.index(min_range_value)
+
+            # POWER MIN AND MAX
+            my_power_list = [v1.power, v2.power, v3.power, v4.power]
+            max_power_value = max(my_power_list)
+            max_power_index = my_power_list.index(max_power_value)
+            min_power_value = min(i for i in my_power_list if i > 0)
+            min_power_index = my_power_list.index(min_power_value)
+
+            self.response.write('</br>Max Index = ' + str(max_power_index))
+            self.response.write('</br>Max Power = ' + str(max_power_value))
+            self.response.write('</br>Min Index = ' + str(min_power_index))
+            self.response.write('</br>Min Power = ' + str(min_power_value))
 
             # YEAR LOGICAL STYLING
             if max_index == min_index:
@@ -910,6 +1197,96 @@ class CompareCars(webapp2.RequestHandler):
                 v4 = vr
                 BatteryStyle4 = ''
 
+            # WLTP RANGE FOR STYLING
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle3 = 'text-success font-weight-bold'
+                RangeStyle4 = 'text-success font-weight-bold'
+            elif max_range_index == 0:
+                RangeStyle1 = 'text-success font-weight-bold'
+            elif max_range_index == 1:
+                RangeStyle2 = 'text-success font-weight-bold'
+            elif max_range_index == 2:
+                RangeStyle3 = 'text-success font-weight-bold'
+            elif max_range_index == 3:
+                RangeStyle4 = 'text-success font-weight-bold'
+
+            if max_range_index == min_range_index:
+                RangeStyle1 = 'text-success font-weight-bold'
+                RangeStyle2 = 'text-success font-weight-bold'
+                RangeStyle3 = 'text-success font-weight-bold'
+                RangeStyle4 = 'text-success font-weight-bold'
+            elif min_range_index == 0:
+                RangeStyle1 = 'text-danger font-weight-bold'
+            elif min_range_index == 1:
+                RangeStyle2 = 'text-danger font-weight-bold'
+            elif min_range_index == 2:
+                RangeStyle3 = 'text-danger font-weight-bold'
+            elif min_range_index == 3:
+                RangeStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                RangeStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                RangeStyle2 = ''
+
+            if len(v3_total_query) != 1:
+                v3 = vr
+                RangeStyle3 = ''
+
+            if len(v4_total_query) != 1:
+                v4 = vr
+                RangeStyle4 = ''
+
+            # POWER FOR STYLING
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle3 = 'text-success font-weight-bold'
+                PowerStyle4 = 'text-success font-weight-bold'
+            elif max_power_index == 0:
+                PowerStyle1 = 'text-success font-weight-bold'
+            elif max_power_index == 1:
+                PowerStyle2 = 'text-success font-weight-bold'
+            elif max_power_index == 2:
+                PowerStyle3 = 'text-success font-weight-bold'
+            elif max_power_index == 3:
+                PowerStyle4 = 'text-success font-weight-bold'
+
+            if max_power_index == min_power_index:
+                PowerStyle1 = 'text-success font-weight-bold'
+                PowerStyle2 = 'text-success font-weight-bold'
+                PowerStyle3 = 'text-success font-weight-bold'
+                PowerStyle4 = 'text-success font-weight-bold'
+            elif min_power_index == 0:
+                PowerStyle1 = 'text-danger font-weight-bold'
+            elif min_power_index == 1:
+                PowerStyle2 = 'text-danger font-weight-bold'
+            elif min_power_index == 2:
+                PowerStyle3 = 'text-danger font-weight-bold'
+            elif min_power_index == 3:
+                PowerStyle4 = 'text-danger font-weight-bold'
+
+            if len(v1_total_query) != 1:
+                v1 = vr
+                PowerStyle1 = ''
+
+            if len(v2_total_query) != 1:
+                v2 = vr
+                PowerStyle2 = ''
+
+            if len(v3_total_query) != 1:
+                v3 = vr
+                PowerStyle3 = ''
+
+            if len(v4_total_query) != 1:
+                v4 = vr
+                PowerStyle4 = ''
+
             template_values = {
                 'user': user,
                 'url': url,
@@ -934,7 +1311,15 @@ class CompareCars(webapp2.RequestHandler):
                 'RangeStyle2': RangeStyle2,
                 'RangeStyle3': RangeStyle3,
                 'RangeStyle4': RangeStyle4,
+                'PowerStyle1': PowerStyle1,
+                'PowerStyle2': PowerStyle2,
+                'PowerStyle3': PowerStyle3,
+                'PowerStyle4': PowerStyle4,
                 'hasSearched': hasSearched,
+                'v1Link': v1Link,
+                'v2Link': v2Link,
+                'v3Link': v3Link,
+                'v4Link': v4Link,
                 'error_message': error_message,
                 'success_message': success_message
             }
