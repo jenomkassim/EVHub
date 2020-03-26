@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVHub - Compare Car</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+
+</head>
+
+<body style="background: whitesmoke;">
+
+<!-- NAVIGATION BAR -->
+<section>
+
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white static-top">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="/" style="color: #1B62FB;">EVHub</a>
+            <button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarResponsive" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search-cars">Search Cars</a>
+                    </li>
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <a class="nav-link" href="#">Add Car</a>-->
+                    <!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="btn logout-button" href="{{ url }}">{{ login_status }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+<!-- END NAVIGATION BAR -->
+
+<!-- FORM FOR COMPARING CAR TO THE DATABASE FOR THE ELECTRIC VEHICLES -->
+<section class="form-section-style">
+
+    <div class="container border p-4 bg-white">
+        <form action="/compare-cars" method="post">
+            <!-- TOP ROW OF FORM -->
+            <div class="row">
+                <div class="col form-group">
+                    <p class="lead" style="font-weight: 500">Car Variant</p>
+                </div>
+                <div class="col form-group">
+                    <input class="form-control" id="vehicle_1" name="vehicle_1" placeholder="Add Vehicle Name" required
+                           type="text">
+                    <input class="form-control mt-2" id="vehicle_1_year" name="vehicle_1_year"
+                           placeholder="Add Vehicle Year" required type="number">
+                </div>
+                <div class="col form-group">
+                    <input class="form-control" id="vehicle_2" name="vehicle_2" placeholder="Add Vehicle Name" required
+                           type="text">
+                    <input class="form-control mt-2" id="vehicle_2_year" name="vehicle_2_year"
+                           placeholder="Add Vehicle Year" required type="number">
+                </div>
+                <div class="col form-group">
+                    <input class="form-control" id="vehicle_3" name="vehicle_3" placeholder="Add Vehicle Name"
+                           type="text">
+                    <input class="form-control mt-2" id="vehicle_3_year" name="vehicle_3_year"
+                           placeholder="Add Vehicle Year" type="number" value="0">
+                </div>
+                <div class="col form-group">
+                    <input class="form-control" id="vehicle_4" name="vehicle_4" placeholder="Add Vehicle Name"
+                           type="text">
+                    <input class="form-control mt-2" id="vehicle_4_year" name="vehicle_4_year"
+                           placeholder="Add Vehicle Year" type="number" value="0">
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW OF FORM -->
+            <div class="row">
+                <div class="col"></div>
+                <div class="col form-group">
+                    <input class="form-control btn btn-primary" name="compare-car-button" type="submit" value="Compare">
+                </div>
+                <div class="col"></div>
+            </div>
+
+        </form>
+
+        <div class="mt-2">
+            <p class="lead text-danger" name="error_mess">{{ error_message }}</p>
+        </div>
+    </div>
+
+</section>
+<!-- END FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
+
+
+{% if hasSearched %}
+<!--DISPLAY SEARCH RESULT SECTION-->
+<section class="form-section-style">
+    <div class="container">
+        <!--        USER RATING-->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">User Rating</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                A
+            </div>
+            <div class="col compare-attributes border-right">
+                B
+            </div>
+            <div class="col compare-attributes border-right">
+                C
+            </div>
+            <div class="col compare-attributes">
+                D
+            </div>
+        </div>
+
+        <!--            CAR MANUFACTURER-->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Manufacturer</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v1.manufacturer }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v2.manufacturer }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v3.manufacturer }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead"> {{ v4.manufacturer }} </p>
+            </div>
+        </div>
+
+        <!--        CAR NAME -->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Name</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v1.name }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v2.name }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v3.name }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead"> {{ v4.name }} </p>
+            </div>
+        </div>
+
+        <!--            YEAR-->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Year</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearStyle1 }}"> {{ v1.year }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearStyle2 }}"> {{ v2.year }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearStyle3 }}"> {{ v3.year }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead {{ yearStyle4 }}"> {{ v4.year }} </p>
+            </div>
+        </div>
+
+        <!--            COST -->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Cost</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearCost1 }}"> €{{ v1.cost }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearCost2 }}"> €{{ v2.cost }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ yearCost3 }}"> €{{ v3.cost }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead {{ yearCost4 }}"> €{{ v4.cost }} </p>
+            </div>
+        </div>
+
+        <!--        BATTERY SIZE -->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Battery Size</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ BatteryStyle1 }}"> {{ v1.batterySize }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ BatteryStyle2 }}"> {{ v2.batterySize }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ BatteryStyle3 }}"> {{ v3.batterySize }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead {{ BatteryStyle4 }}"> {{ v4.batterySize }} </p>
+            </div>
+        </div>
+
+        <!--            WLTP RANGE -->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">WLTP Range</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ RangeStyle1 }}"> {{ v1.WLTP_range }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ RangeStyle2 }}"> {{ v2.WLTP_range }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead {{ RangeStyle3 }}"> {{ v3.WLTP_range }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead {{ RangeStyle4 }}"> {{ v4.WLTP_range }} </p>
+            </div>
+        </div>
+
+        <!--        POWER -->
+        <div class="row border bg-white">
+            <div class="col compare-title border-right">
+                <p class="lead" style="font-weight: 500">Power</p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v1.power }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v2.power }} </p>
+            </div>
+            <div class="col compare-attributes border-right">
+                <p class="lead"> {{ v3.power }} </p>
+            </div>
+            <div class="col compare-attributes">
+                <p class="lead"> {{ v4.power }} </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- END DISPLAY SEARCH RESULT SECTION-->
+{% endif %}
+
+
+<script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script src="js/popper.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

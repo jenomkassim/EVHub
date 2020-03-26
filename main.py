@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 
 from addcar import AddCar
 from cardetails import CarDetails
+from comparecars import CompareCars
 from myuser import MyUser
 from searchcars import SearchCars
 from vehicles import Vehicles
@@ -82,5 +83,6 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/addcar', AddCar),
     ('/search-cars', SearchCars),
-    ('/car-details', CarDetails)
+    ('/car-details', CarDetails),
+    ('/compare-cars', CompareCars)
 ], debug=True)

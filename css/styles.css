@@ -123,3 +123,10 @@ body{
     font-size: 18px;
 }
 
+.compare-attributes {
+    padding: 13px 15px 5px 15px;
+}
+
+.compare-title {
+    padding: 13px 15px 5px 15px;
+}
