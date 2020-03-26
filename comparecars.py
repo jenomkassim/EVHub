@@ -169,210 +169,219 @@ class CompareCars(webapp2.RequestHandler):
                 v2 = vrv
                 v2Link = False
 
-            # YEAR MIN AND MAX
-            my_list = [v1.year, v2.year]
-            max_value = max(my_list)
-            max_index = my_list.index(max_value)
-            min_value = min(i for i in my_list if i > 0)
-            min_index = my_list.index(min_value)
+            if v1.year == 0 and v2.year == 0:
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    PowerStyle1 = ''
 
-            # COST MIN AND MAX
-            my_cost_list = [v1.cost, v2.cost]
-            max_cost_value = max(my_cost_list)
-            max_cost_index = my_cost_list.index(max_cost_value)
-            min_cost_value = min(i for i in my_cost_list if i > 0)
-            min_cost_index = my_cost_list.index(min_cost_value)
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    PowerStyle2 = ''
+            else:
+                # YEAR MIN AND MAX
+                my_list = [v1.year, v2.year]
+                max_value = max(my_list)
+                max_index = my_list.index(max_value)
+                min_value = min(i for i in my_list if i > 0)
+                min_index = my_list.index(min_value)
 
-            # BATTERY SIZE MIN AND MAX
-            my_battery_list = [v1.batterySize, v2.batterySize]
-            max_battery_value = max(my_battery_list)
-            max_battery_index = my_battery_list.index(max_battery_value)
-            min_battery_value = min(i for i in my_battery_list if i > 0)
-            min_battery_index = my_battery_list.index(min_battery_value)
+                # COST MIN AND MAX
+                my_cost_list = [v1.cost, v2.cost]
+                max_cost_value = max(my_cost_list)
+                max_cost_index = my_cost_list.index(max_cost_value)
+                min_cost_value = min(i for i in my_cost_list if i > 0)
+                min_cost_index = my_cost_list.index(min_cost_value)
 
-            # WLTP RANGE MIN AND MAX
-            my_range_list = [v1.WLTP_range, v2.WLTP_range]
-            max_range_value = max(my_range_list)
-            max_range_index = my_range_list.index(max_range_value)
-            min_range_value = min(i for i in my_range_list if i > 0)
-            min_range_index = my_range_list.index(min_range_value)
+                # BATTERY SIZE MIN AND MAX
+                my_battery_list = [v1.batterySize, v2.batterySize]
+                max_battery_value = max(my_battery_list)
+                max_battery_index = my_battery_list.index(max_battery_value)
+                min_battery_value = min(i for i in my_battery_list if i > 0)
+                min_battery_index = my_battery_list.index(min_battery_value)
 
-            # POWER MIN AND MAX
-            my_power_list = [v1.power, v2.power]
-            max_power_value = max(my_power_list)
-            max_power_index = my_power_list.index(max_power_value)
-            min_power_value = min(i for i in my_power_list if i > 0)
-            min_power_index = my_power_list.index(min_power_value)
+                # WLTP RANGE MIN AND MAX
+                my_range_list = [v1.WLTP_range, v2.WLTP_range]
+                max_range_value = max(my_range_list)
+                max_range_index = my_range_list.index(max_range_value)
+                min_range_value = min(i for i in my_range_list if i > 0)
+                min_range_index = my_range_list.index(min_range_value)
 
-            self.response.write('</br>Max Index = ' + str(max_power_index))
-            self.response.write('</br>Max Power = ' + str(max_power_value))
-            self.response.write('</br>Min Index = ' + str(min_power_index))
-            self.response.write('</br>Min Power = ' + str(min_power_value))
+                # POWER MIN AND MAX
+                my_power_list = [v1.power, v2.power]
+                max_power_value = max(my_power_list)
+                max_power_index = my_power_list.index(max_power_value)
+                min_power_value = min(i for i in my_power_list if i > 0)
+                min_power_index = my_power_list.index(min_power_value)
 
-            # YEAR LOGIC FOR STYLING
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-            elif max_index == 0:
-                yearStyle1 = 'text-success font-weight-bold'
-            elif max_index == 1:
-                yearStyle2 = 'text-success font-weight-bold'
-            elif max_index == 2:
-                yearStyle3 = 'text-success font-weight-bold'
-            elif max_index == 3:
-                yearStyle4 = 'text-success font-weight-bold'
+                self.response.write('</br>Max Index = ' + str(max_power_index))
+                self.response.write('</br>Max Power = ' + str(max_power_value))
+                self.response.write('</br>Min Index = ' + str(min_power_index))
+                self.response.write('</br>Min Power = ' + str(min_power_value))
 
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-            elif min_index == 0:
-                yearStyle1 = 'text-danger font-weight-bold'
-            elif min_index == 1:
-                yearStyle2 = 'text-danger font-weight-bold'
-            elif min_index == 2:
-                yearStyle3 = 'text-danger font-weight-bold'
-            elif min_index == 3:
-                yearStyle4 = 'text-danger font-weight-bold'
+                # YEAR LOGIC FOR STYLING
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif max_index == 0:
+                    yearStyle1 = 'text-success font-weight-bold'
+                elif max_index == 1:
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif max_index == 2:
+                    yearStyle3 = 'text-success font-weight-bold'
+                elif max_index == 3:
+                    yearStyle4 = 'text-success font-weight-bold'
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearStyle1 = ''
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif min_index == 0:
+                    yearStyle1 = 'text-danger font-weight-bold'
+                elif min_index == 1:
+                    yearStyle2 = 'text-danger font-weight-bold'
+                elif min_index == 2:
+                    yearStyle3 = 'text-danger font-weight-bold'
+                elif min_index == 3:
+                    yearStyle4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearStyle2 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearStyle1 = ''
 
-            # COST LOGIC FOR STYLING
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-            elif max_cost_index == 0:
-                yearCost1 = 'text-danger font-weight-bold'
-            elif max_cost_index == 1:
-                yearCost2 = 'text-danger font-weight-bold'
-            elif max_cost_index == 2:
-                yearCost3 = 'text-danger font-weight-bold'
-            elif max_cost_index == 3:
-                yearCost4 = 'text-danger font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearStyle2 = ''
 
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-            elif min_cost_index == 0:
-                yearCost1 = 'text-success font-weight-bold'
-            elif min_cost_index == 1:
-                yearCost2 = 'text-success font-weight-bold'
-            elif min_cost_index == 2:
-                yearCost3 = 'text-success font-weight-bold'
-            elif min_cost_index == 3:
-                yearCost4 = 'text-success font-weight-bold'
+                # COST LOGIC FOR STYLING
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                elif max_cost_index == 0:
+                    yearCost1 = 'text-danger font-weight-bold'
+                elif max_cost_index == 1:
+                    yearCost2 = 'text-danger font-weight-bold'
+                elif max_cost_index == 2:
+                    yearCost3 = 'text-danger font-weight-bold'
+                elif max_cost_index == 3:
+                    yearCost4 = 'text-danger font-weight-bold'
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearCost1 = ''
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                elif min_cost_index == 0:
+                    yearCost1 = 'text-success font-weight-bold'
+                elif min_cost_index == 1:
+                    yearCost2 = 'text-success font-weight-bold'
+                elif min_cost_index == 2:
+                    yearCost3 = 'text-success font-weight-bold'
+                elif min_cost_index == 3:
+                    yearCost4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearCost2 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearCost1 = ''
 
-            # BATTERY LOGIC FOR STYLING
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif max_battery_index == 0:
-                BatteryStyle1 = 'text-success font-weight-bold'
-            elif max_battery_index == 1:
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif max_battery_index == 2:
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif max_battery_index == 3:
-                BatteryStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearCost2 = ''
 
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif min_battery_index == 0:
-                BatteryStyle1 = 'text-danger font-weight-bold'
-            elif min_battery_index == 1:
-                BatteryStyle2 = 'text-danger font-weight-bold'
-            elif min_battery_index == 2:
-                BatteryStyle3 = 'text-danger font-weight-bold'
-            elif min_battery_index == 3:
-                BatteryStyle4 = 'text-danger font-weight-bold'
+                # BATTERY LOGIC FOR STYLING
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif max_battery_index == 0:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                elif max_battery_index == 1:
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif max_battery_index == 2:
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif max_battery_index == 3:
+                    BatteryStyle4 = 'text-success font-weight-bold'
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                BatteryStyle1 = ''
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif min_battery_index == 0:
+                    BatteryStyle1 = 'text-danger font-weight-bold'
+                elif min_battery_index == 1:
+                    BatteryStyle2 = 'text-danger font-weight-bold'
+                elif min_battery_index == 2:
+                    BatteryStyle3 = 'text-danger font-weight-bold'
+                elif min_battery_index == 3:
+                    BatteryStyle4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                BatteryStyle2 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    BatteryStyle1 = ''
 
-            # WLTP RANGE FOR STYLING
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif max_range_index == 0:
-                RangeStyle1 = 'text-success font-weight-bold'
-            elif max_range_index == 1:
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif max_range_index == 2:
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif max_range_index == 3:
-                RangeStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    BatteryStyle2 = ''
 
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif min_range_index == 0:
-                RangeStyle1 = 'text-danger font-weight-bold'
-            elif min_range_index == 1:
-                RangeStyle2 = 'text-danger font-weight-bold'
-            elif min_range_index == 2:
-                RangeStyle3 = 'text-danger font-weight-bold'
-            elif min_range_index == 3:
-                RangeStyle4 = 'text-danger font-weight-bold'
+                # WLTP RANGE FOR STYLING
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif max_range_index == 0:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                elif max_range_index == 1:
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif max_range_index == 2:
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif max_range_index == 3:
+                    RangeStyle4 = 'text-success font-weight-bold'
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                RangeStyle1 = ''
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif min_range_index == 0:
+                    RangeStyle1 = 'text-danger font-weight-bold'
+                elif min_range_index == 1:
+                    RangeStyle2 = 'text-danger font-weight-bold'
+                elif min_range_index == 2:
+                    RangeStyle3 = 'text-danger font-weight-bold'
+                elif min_range_index == 3:
+                    RangeStyle4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                RangeStyle2 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    RangeStyle1 = ''
 
-            # POWER FOR STYLING
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif max_power_index == 0:
-                PowerStyle1 = 'text-success font-weight-bold'
-            elif max_power_index == 1:
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif max_power_index == 2:
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif max_power_index == 3:
-                PowerStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    RangeStyle2 = ''
 
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif min_power_index == 0:
-                PowerStyle1 = 'text-danger font-weight-bold'
-            elif min_power_index == 1:
-                PowerStyle2 = 'text-danger font-weight-bold'
-            elif min_power_index == 2:
-                PowerStyle3 = 'text-danger font-weight-bold'
-            elif min_power_index == 3:
-                PowerStyle4 = 'text-danger font-weight-bold'
+                # POWER FOR STYLING
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif max_power_index == 0:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                elif max_power_index == 1:
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif max_power_index == 2:
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif max_power_index == 3:
+                    PowerStyle4 = 'text-success font-weight-bold'
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                PowerStyle1 = ''
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif min_power_index == 0:
+                    PowerStyle1 = 'text-danger font-weight-bold'
+                elif min_power_index == 1:
+                    PowerStyle2 = 'text-danger font-weight-bold'
+                elif min_power_index == 2:
+                    PowerStyle3 = 'text-danger font-weight-bold'
+                elif min_power_index == 3:
+                    PowerStyle4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                PowerStyle2 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    PowerStyle1 = ''
+
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    PowerStyle2 = ''
 
             template_values = {
                 'user': user,
@@ -434,239 +443,249 @@ class CompareCars(webapp2.RequestHandler):
                 v3 = vrv
                 v3Link = False
 
-            # YEAR LOGIC CALCULATION
-            my_list = [v1.year, v2.year, v3.year]
-            max_value = max(my_list)
-            max_index = my_list.index(max_value)
-            min_value = min(i for i in my_list if i > 0)
-            min_index = my_list.index(min_value)
+            if v1.year == 0 and v2.year == 0 and v3.year == 0:
+                if len(v1_total_query) != 1:
+                    v1 = vr
 
-            # COST MIN AND MAX
-            my_cost_list = [v1.cost, v2.cost, v3.cost]
-            max_cost_value = max(my_cost_list)
-            max_cost_index = my_cost_list.index(max_cost_value)
-            min_cost_value = min(i for i in my_cost_list if i > 0)
-            min_cost_index = my_cost_list.index(min_cost_value)
+                if len(v2_total_query) != 1:
+                    v2 = vr
 
-            # BATTERY SIZE MIN AND MAX
-            my_battery_list = [v1.batterySize, v2.batterySize, v3.batterySize]
-            max_battery_value = max(my_battery_list)
-            max_battery_index = my_battery_list.index(max_battery_value)
-            min_battery_value = min(i for i in my_battery_list if i > 0)
-            min_battery_index = my_battery_list.index(min_battery_value)
+                if len(v3_total_query) != 1:
+                    v3 = vr
+            else:
+                # YEAR LOGIC CALCULATION
+                my_list = [v1.year, v2.year, v3.year]
+                max_value = max(my_list)
+                max_index = my_list.index(max_value)
+                min_value = min(i for i in my_list if i > 0)
+                min_index = my_list.index(min_value)
 
-            # WLTP RANGE MIN AND MAX
-            my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range]
-            max_range_value = max(my_range_list)
-            max_range_index = my_range_list.index(max_range_value)
-            min_range_value = min(i for i in my_range_list if i > 0)
-            min_range_index = my_range_list.index(min_range_value)
+                # COST MIN AND MAX
+                my_cost_list = [v1.cost, v2.cost, v3.cost]
+                max_cost_value = max(my_cost_list)
+                max_cost_index = my_cost_list.index(max_cost_value)
+                min_cost_value = min(i for i in my_cost_list if i > 0)
+                min_cost_index = my_cost_list.index(min_cost_value)
 
-            # POWER MIN AND MAX
-            my_power_list = [v1.power, v2.power, v3.power]
-            max_power_value = max(my_power_list)
-            max_power_index = my_power_list.index(max_power_value)
-            min_power_value = min(i for i in my_power_list if i > 0)
-            min_power_index = my_power_list.index(min_power_value)
+                # BATTERY SIZE MIN AND MAX
+                my_battery_list = [v1.batterySize, v2.batterySize, v3.batterySize]
+                max_battery_value = max(my_battery_list)
+                max_battery_index = my_battery_list.index(max_battery_value)
+                min_battery_value = min(i for i in my_battery_list if i > 0)
+                min_battery_index = my_battery_list.index(min_battery_value)
 
-            self.response.write('</br>Max Index = ' + str(max_power_index))
-            self.response.write('</br>Max Power = ' + str(max_power_value))
-            self.response.write('</br>Min Index = ' + str(min_power_index))
-            self.response.write('</br>Min Power = ' + str(min_power_value))
+                # WLTP RANGE MIN AND MAX
+                my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range]
+                max_range_value = max(my_range_list)
+                max_range_index = my_range_list.index(max_range_value)
+                min_range_value = min(i for i in my_range_list if i > 0)
+                min_range_index = my_range_list.index(min_range_value)
 
-            # YEAR LOGICAL STYLING
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-                yearStyle3 = 'text-success font-weight-bold'
-            elif max_index == 0:
-                yearStyle1 = 'text-success font-weight-bold'
-            elif max_index == 1:
-                yearStyle2 = 'text-success font-weight-bold'
-            elif max_index == 2:
-                yearStyle3 = 'text-success font-weight-bold'
-            elif max_index == 3:
-                yearStyle4 = 'text-success font-weight-bold'
+                # POWER MIN AND MAX
+                my_power_list = [v1.power, v2.power, v3.power]
+                max_power_value = max(my_power_list)
+                max_power_index = my_power_list.index(max_power_value)
+                min_power_value = min(i for i in my_power_list if i > 0)
+                min_power_index = my_power_list.index(min_power_value)
 
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-            elif min_index == 0:
-                yearStyle1 = 'text-danger font-weight-bold'
-            elif min_index == 1:
-                yearStyle2 = 'text-danger font-weight-bold'
-            elif min_index == 2:
-                yearStyle3 = 'text-danger font-weight-bold'
-            elif min_index == 3:
-                yearStyle4 = 'text-danger font-weight-bold'
+                self.response.write('</br>Max Index = ' + str(max_power_index))
+                self.response.write('</br>Max Power = ' + str(max_power_value))
+                self.response.write('</br>Min Index = ' + str(min_power_index))
+                self.response.write('</br>Min Power = ' + str(min_power_value))
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearStyle1 = ''
+                # YEAR LOGICAL STYLING
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle3 = 'text-success font-weight-bold'
+                elif max_index == 0:
+                    yearStyle1 = 'text-success font-weight-bold'
+                elif max_index == 1:
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif max_index == 2:
+                    yearStyle3 = 'text-success font-weight-bold'
+                elif max_index == 3:
+                    yearStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearStyle2 = ''
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif min_index == 0:
+                    yearStyle1 = 'text-danger font-weight-bold'
+                elif min_index == 1:
+                    yearStyle2 = 'text-danger font-weight-bold'
+                elif min_index == 2:
+                    yearStyle3 = 'text-danger font-weight-bold'
+                elif min_index == 3:
+                    yearStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                yearStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearStyle1 = ''
 
-            # COST LOGIC FOR STYLING
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost3 = 'text-success font-weight-bold'
-            elif max_cost_index == 0:
-                yearCost1 = 'text-danger font-weight-bold'
-            elif max_cost_index == 1:
-                yearCost2 = 'text-danger font-weight-bold'
-            elif max_cost_index == 2:
-                yearCost3 = 'text-danger font-weight-bold'
-            elif max_cost_index == 3:
-                yearCost4 = 'text-danger font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearStyle2 = ''
 
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost3 = 'text-success font-weight-bold'
-            elif min_cost_index == 0:
-                yearCost1 = 'text-success font-weight-bold'
-            elif min_cost_index == 1:
-                yearCost2 = 'text-success font-weight-bold'
-            elif min_cost_index == 2:
-                yearCost3 = 'text-success font-weight-bold'
-            elif min_cost_index == 3:
-                yearCost4 = 'text-success font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    yearStyle3 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearCost1 = ''
+                # COST LOGIC FOR STYLING
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost3 = 'text-success font-weight-bold'
+                elif max_cost_index == 0:
+                    yearCost1 = 'text-danger font-weight-bold'
+                elif max_cost_index == 1:
+                    yearCost2 = 'text-danger font-weight-bold'
+                elif max_cost_index == 2:
+                    yearCost3 = 'text-danger font-weight-bold'
+                elif max_cost_index == 3:
+                    yearCost4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearCost2 = ''
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost3 = 'text-success font-weight-bold'
+                elif min_cost_index == 0:
+                    yearCost1 = 'text-success font-weight-bold'
+                elif min_cost_index == 1:
+                    yearCost2 = 'text-success font-weight-bold'
+                elif min_cost_index == 2:
+                    yearCost3 = 'text-success font-weight-bold'
+                elif min_cost_index == 3:
+                    yearCost4 = 'text-success font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                yearCost3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearCost1 = ''
 
-            # BATTERY LOGIC FOR STYLING
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif max_battery_index == 0:
-                BatteryStyle1 = 'text-success font-weight-bold'
-            elif max_battery_index == 1:
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif max_battery_index == 2:
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif max_battery_index == 3:
-                BatteryStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearCost2 = ''
 
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif min_battery_index == 0:
-                BatteryStyle1 = 'text-danger font-weight-bold'
-            elif min_battery_index == 1:
-                BatteryStyle2 = 'text-danger font-weight-bold'
-            elif min_battery_index == 2:
-                BatteryStyle3 = 'text-danger font-weight-bold'
-            elif min_battery_index == 3:
-                BatteryStyle4 = 'text-danger font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    yearCost3 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                BatteryStyle1 = ''
+                # BATTERY LOGIC FOR STYLING
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif max_battery_index == 0:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                elif max_battery_index == 1:
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif max_battery_index == 2:
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif max_battery_index == 3:
+                    BatteryStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                BatteryStyle2 = ''
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif min_battery_index == 0:
+                    BatteryStyle1 = 'text-danger font-weight-bold'
+                elif min_battery_index == 1:
+                    BatteryStyle2 = 'text-danger font-weight-bold'
+                elif min_battery_index == 2:
+                    BatteryStyle3 = 'text-danger font-weight-bold'
+                elif min_battery_index == 3:
+                    BatteryStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                BatteryStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    BatteryStyle1 = ''
 
-            # WLTP RANGE FOR STYLING
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif max_range_index == 0:
-                RangeStyle1 = 'text-success font-weight-bold'
-            elif max_range_index == 1:
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif max_range_index == 2:
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif max_range_index == 3:
-                RangeStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    BatteryStyle2 = ''
 
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif min_range_index == 0:
-                RangeStyle1 = 'text-danger font-weight-bold'
-            elif min_range_index == 1:
-                RangeStyle2 = 'text-danger font-weight-bold'
-            elif min_range_index == 2:
-                RangeStyle3 = 'text-danger font-weight-bold'
-            elif min_range_index == 3:
-                RangeStyle4 = 'text-danger font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    BatteryStyle3 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                RangeStyle1 = ''
+                # WLTP RANGE FOR STYLING
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif max_range_index == 0:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                elif max_range_index == 1:
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif max_range_index == 2:
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif max_range_index == 3:
+                    RangeStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                RangeStyle2 = ''
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif min_range_index == 0:
+                    RangeStyle1 = 'text-danger font-weight-bold'
+                elif min_range_index == 1:
+                    RangeStyle2 = 'text-danger font-weight-bold'
+                elif min_range_index == 2:
+                    RangeStyle3 = 'text-danger font-weight-bold'
+                elif min_range_index == 3:
+                    RangeStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                RangeStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    RangeStyle1 = ''
 
-            # POWER FOR STYLING
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif max_power_index == 0:
-                PowerStyle1 = 'text-success font-weight-bold'
-            elif max_power_index == 1:
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif max_power_index == 2:
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif max_power_index == 3:
-                PowerStyle4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    RangeStyle2 = ''
 
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif min_power_index == 0:
-                PowerStyle1 = 'text-danger font-weight-bold'
-            elif min_power_index == 1:
-                PowerStyle2 = 'text-danger font-weight-bold'
-            elif min_power_index == 2:
-                PowerStyle3 = 'text-danger font-weight-bold'
-            elif min_power_index == 3:
-                PowerStyle4 = 'text-danger font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    RangeStyle3 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                PowerStyle1 = ''
+                # POWER FOR STYLING
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif max_power_index == 0:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                elif max_power_index == 1:
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif max_power_index == 2:
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif max_power_index == 3:
+                    PowerStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                PowerStyle2 = ''
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif min_power_index == 0:
+                    PowerStyle1 = 'text-danger font-weight-bold'
+                elif min_power_index == 1:
+                    PowerStyle2 = 'text-danger font-weight-bold'
+                elif min_power_index == 2:
+                    PowerStyle3 = 'text-danger font-weight-bold'
+                elif min_power_index == 3:
+                    PowerStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                PowerStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    PowerStyle1 = ''
+
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    PowerStyle2 = ''
+
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    PowerStyle3 = ''
 
             template_values = {
                 'user': user,
@@ -727,239 +746,250 @@ class CompareCars(webapp2.RequestHandler):
                 v4 = vrv
                 v4Link = False
 
-            # YEAR MIN MAX
-            my_list = [v1.year, v2.year, 0, v4.year]
-            max_value = max(my_list)
-            max_index = my_list.index(max_value)
-            min_value = min(i for i in my_list if i > 0)
-            min_index = my_list.index(min_value)
+            if v1.year == 0 and v2.year == 0 and v4.year == 0:
+                if len(v1_total_query) != 1:
+                    v1 = vr
 
-            # COST MIN AND MAX
-            my_cost_list = [v1.cost, v2.cost, 0, v4.cost]
-            max_cost_value = max(my_cost_list)
-            max_cost_index = my_cost_list.index(max_cost_value)
-            min_cost_value = min(i for i in my_cost_list if i > 0)
-            min_cost_index = my_cost_list.index(min_cost_value)
+                if len(v2_total_query) != 1:
+                    v2 = vr
 
-            # BATTERY SIZE MIN AND MAX
-            my_battery_list = [v1.batterySize, v2.batterySize, 0, v4.batterySize]
-            max_battery_value = max(my_battery_list)
-            max_battery_index = my_battery_list.index(max_battery_value)
-            min_battery_value = min(i for i in my_battery_list if i > 0)
-            min_battery_index = my_battery_list.index(min_battery_value)
+                if len(v3_total_query) != 1:
+                    v3 = vr
+            else:
 
-            # WLTP RANGE MIN AND MAX
-            my_range_list = [v1.WLTP_range, v2.WLTP_range, 0, v4.WLTP_range]
-            max_range_value = max(my_range_list)
-            max_range_index = my_range_list.index(max_range_value)
-            min_range_value = min(i for i in my_range_list if i > 0)
-            min_range_index = my_range_list.index(min_range_value)
+                # YEAR MIN MAX
+                my_list = [v1.year, v2.year, 0, v4.year]
+                max_value = max(my_list)
+                max_index = my_list.index(max_value)
+                min_value = min(i for i in my_list if i > 0)
+                min_index = my_list.index(min_value)
 
-            # POWER MIN AND MAX
-            my_power_list = [v1.power, v2.power, 0, v4.power]
-            max_power_value = max(my_power_list)
-            max_power_index = my_power_list.index(max_power_value)
-            min_power_value = min(i for i in my_power_list if i > 0)
-            min_power_index = my_power_list.index(min_power_value)
+                # COST MIN AND MAX
+                my_cost_list = [v1.cost, v2.cost, 0, v4.cost]
+                max_cost_value = max(my_cost_list)
+                max_cost_index = my_cost_list.index(max_cost_value)
+                min_cost_value = min(i for i in my_cost_list if i > 0)
+                min_cost_index = my_cost_list.index(min_cost_value)
 
-            self.response.write('</br>Max Index = ' + str(max_power_index))
-            self.response.write('</br>Max Power = ' + str(max_power_value))
-            self.response.write('</br>Min Index = ' + str(min_power_index))
-            self.response.write('</br>Min Power = ' + str(min_power_value))
+                # BATTERY SIZE MIN AND MAX
+                my_battery_list = [v1.batterySize, v2.batterySize, 0, v4.batterySize]
+                max_battery_value = max(my_battery_list)
+                max_battery_index = my_battery_list.index(max_battery_value)
+                min_battery_value = min(i for i in my_battery_list if i > 0)
+                min_battery_index = my_battery_list.index(min_battery_value)
 
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-                yearStyle4 = 'text-success font-weight-bold'
-            elif max_index == 0:
-                yearStyle1 = 'text-success font-weight-bold'
-            elif max_index == 1:
-                yearStyle2 = 'text-success font-weight-bold'
-            elif max_index == 2:
-                yearStyle3 = 'text-success font-weight-bold'
-            elif max_index == 3:
-                yearStyle4 = 'text-success font-weight-bold'
+                # WLTP RANGE MIN AND MAX
+                my_range_list = [v1.WLTP_range, v2.WLTP_range, 0, v4.WLTP_range]
+                max_range_value = max(my_range_list)
+                max_range_index = my_range_list.index(max_range_value)
+                min_range_value = min(i for i in my_range_list if i > 0)
+                min_range_index = my_range_list.index(min_range_value)
 
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-                yearStyle4 = 'text-success font-weight-bold'
-            elif min_index == 0:
-                yearStyle1 = 'text-danger font-weight-bold'
-            elif min_index == 1:
-                yearStyle2 = 'text-danger font-weight-bold'
-            elif min_index == 2:
-                yearStyle3 = 'text-danger font-weight-bold'
-            elif min_index == 3:
-                yearStyle4 = 'text-danger font-weight-bold'
+                # POWER MIN AND MAX
+                my_power_list = [v1.power, v2.power, 0, v4.power]
+                max_power_value = max(my_power_list)
+                max_power_index = my_power_list.index(max_power_value)
+                min_power_value = min(i for i in my_power_list if i > 0)
+                min_power_index = my_power_list.index(min_power_value)
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearStyle1 = ''
+                self.response.write('</br>Max Index = ' + str(max_power_index))
+                self.response.write('</br>Max Power = ' + str(max_power_value))
+                self.response.write('</br>Min Index = ' + str(min_power_index))
+                self.response.write('</br>Min Power = ' + str(min_power_value))
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearStyle2 = ''
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle4 = 'text-success font-weight-bold'
+                elif max_index == 0:
+                    yearStyle1 = 'text-success font-weight-bold'
+                elif max_index == 1:
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif max_index == 2:
+                    yearStyle3 = 'text-success font-weight-bold'
+                elif max_index == 3:
+                    yearStyle4 = 'text-success font-weight-bold'
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                yearStyle4 = ''
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle4 = 'text-success font-weight-bold'
+                elif min_index == 0:
+                    yearStyle1 = 'text-danger font-weight-bold'
+                elif min_index == 1:
+                    yearStyle2 = 'text-danger font-weight-bold'
+                elif min_index == 2:
+                    yearStyle3 = 'text-danger font-weight-bold'
+                elif min_index == 3:
+                    yearStyle4 = 'text-danger font-weight-bold'
 
-            # COST LOGIC FOR STYLING
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost4 = 'text-success font-weight-bold'
-            elif max_cost_index == 0:
-                yearCost1 = 'text-danger font-weight-bold'
-            elif max_cost_index == 1:
-                yearCost2 = 'text-danger font-weight-bold'
-            elif max_cost_index == 2:
-                yearCost3 = 'text-danger font-weight-bold'
-            elif max_cost_index == 3:
-                yearCost4 = 'text-danger font-weight-bold'
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearStyle1 = ''
 
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost4 = 'text-success font-weight-bold'
-            elif min_cost_index == 0:
-                yearCost1 = 'text-success font-weight-bold'
-            elif min_cost_index == 1:
-                yearCost2 = 'text-success font-weight-bold'
-            elif min_cost_index == 2:
-                yearCost3 = 'text-success font-weight-bold'
-            elif min_cost_index == 3:
-                yearCost4 = 'text-success font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearStyle2 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearCost1 = ''
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    yearStyle4 = ''
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearCost2 = ''
+                # COST LOGIC FOR STYLING
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost4 = 'text-success font-weight-bold'
+                elif max_cost_index == 0:
+                    yearCost1 = 'text-danger font-weight-bold'
+                elif max_cost_index == 1:
+                    yearCost2 = 'text-danger font-weight-bold'
+                elif max_cost_index == 2:
+                    yearCost3 = 'text-danger font-weight-bold'
+                elif max_cost_index == 3:
+                    yearCost4 = 'text-danger font-weight-bold'
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                yearCost4 = ''
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost4 = 'text-success font-weight-bold'
+                elif min_cost_index == 0:
+                    yearCost1 = 'text-success font-weight-bold'
+                elif min_cost_index == 1:
+                    yearCost2 = 'text-success font-weight-bold'
+                elif min_cost_index == 2:
+                    yearCost3 = 'text-success font-weight-bold'
+                elif min_cost_index == 3:
+                    yearCost4 = 'text-success font-weight-bold'
 
-            # BATTERY LOGIC FOR STYLING
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle4 = 'text-success font-weight-bold'
-            elif max_battery_index == 0:
-                BatteryStyle1 = 'text-success font-weight-bold'
-            elif max_battery_index == 1:
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif max_battery_index == 2:
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif max_battery_index == 3:
-                BatteryStyle4 = 'text-success font-weight-bold'
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearCost1 = ''
 
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle4 = 'text-success font-weight-bold'
-            elif min_battery_index == 0:
-                BatteryStyle1 = 'text-danger font-weight-bold'
-            elif min_battery_index == 1:
-                BatteryStyle2 = 'text-danger font-weight-bold'
-            elif min_battery_index == 2:
-                BatteryStyle3 = 'text-danger font-weight-bold'
-            elif min_battery_index == 3:
-                BatteryStyle4 = 'text-danger font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearCost2 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                BatteryStyle1 = ''
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    yearCost4 = ''
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                BatteryStyle2 = ''
+                # BATTERY LOGIC FOR STYLING
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle4 = 'text-success font-weight-bold'
+                elif max_battery_index == 0:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                elif max_battery_index == 1:
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif max_battery_index == 2:
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif max_battery_index == 3:
+                    BatteryStyle4 = 'text-success font-weight-bold'
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                BatteryStyle4 = ''
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle4 = 'text-success font-weight-bold'
+                elif min_battery_index == 0:
+                    BatteryStyle1 = 'text-danger font-weight-bold'
+                elif min_battery_index == 1:
+                    BatteryStyle2 = 'text-danger font-weight-bold'
+                elif min_battery_index == 2:
+                    BatteryStyle3 = 'text-danger font-weight-bold'
+                elif min_battery_index == 3:
+                    BatteryStyle4 = 'text-danger font-weight-bold'
 
-            # WLTP RANGE FOR STYLING
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle4 = 'text-success font-weight-bold'
-            elif max_range_index == 0:
-                RangeStyle1 = 'text-success font-weight-bold'
-            elif max_range_index == 1:
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif max_range_index == 2:
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif max_range_index == 3:
-                RangeStyle4 = 'text-success font-weight-bold'
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    BatteryStyle1 = ''
 
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle4 = 'text-success font-weight-bold'
-            elif min_range_index == 0:
-                RangeStyle1 = 'text-danger font-weight-bold'
-            elif min_range_index == 1:
-                RangeStyle2 = 'text-danger font-weight-bold'
-            elif min_range_index == 2:
-                RangeStyle3 = 'text-danger font-weight-bold'
-            elif min_range_index == 3:
-                RangeStyle4 = 'text-danger font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    BatteryStyle2 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                RangeStyle1 = ''
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    BatteryStyle4 = ''
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                RangeStyle2 = ''
+                # WLTP RANGE FOR STYLING
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle4 = 'text-success font-weight-bold'
+                elif max_range_index == 0:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                elif max_range_index == 1:
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif max_range_index == 2:
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif max_range_index == 3:
+                    RangeStyle4 = 'text-success font-weight-bold'
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                RangeStyle4 = ''
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle4 = 'text-success font-weight-bold'
+                elif min_range_index == 0:
+                    RangeStyle1 = 'text-danger font-weight-bold'
+                elif min_range_index == 1:
+                    RangeStyle2 = 'text-danger font-weight-bold'
+                elif min_range_index == 2:
+                    RangeStyle3 = 'text-danger font-weight-bold'
+                elif min_range_index == 3:
+                    RangeStyle4 = 'text-danger font-weight-bold'
 
-            # POWER FOR STYLING
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle4 = 'text-success font-weight-bold'
-            elif max_power_index == 0:
-                PowerStyle1 = 'text-success font-weight-bold'
-            elif max_power_index == 1:
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif max_power_index == 2:
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif max_power_index == 3:
-                PowerStyle4 = 'text-success font-weight-bold'
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    RangeStyle1 = ''
 
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle4 = 'text-success font-weight-bold'
-            elif min_power_index == 0:
-                PowerStyle1 = 'text-danger font-weight-bold'
-            elif min_power_index == 1:
-                PowerStyle2 = 'text-danger font-weight-bold'
-            elif min_power_index == 2:
-                PowerStyle3 = 'text-danger font-weight-bold'
-            elif min_power_index == 3:
-                PowerStyle4 = 'text-danger font-weight-bold'
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    RangeStyle2 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                PowerStyle1 = ''
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    RangeStyle4 = ''
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                PowerStyle2 = ''
+                # POWER FOR STYLING
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle4 = 'text-success font-weight-bold'
+                elif max_power_index == 0:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                elif max_power_index == 1:
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif max_power_index == 2:
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif max_power_index == 3:
+                    PowerStyle4 = 'text-success font-weight-bold'
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                PowerStyle4 = ''
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle4 = 'text-success font-weight-bold'
+                elif min_power_index == 0:
+                    PowerStyle1 = 'text-danger font-weight-bold'
+                elif min_power_index == 1:
+                    PowerStyle2 = 'text-danger font-weight-bold'
+                elif min_power_index == 2:
+                    PowerStyle3 = 'text-danger font-weight-bold'
+                elif min_power_index == 3:
+                    PowerStyle4 = 'text-danger font-weight-bold'
+
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    PowerStyle1 = ''
+
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    PowerStyle2 = ''
+
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    PowerStyle4 = ''
 
             template_values = {
                 'user': user,
@@ -1022,270 +1052,282 @@ class CompareCars(webapp2.RequestHandler):
                 v4 = vrv
                 v4Link = False
 
+            if v1.year == 0 and v2.year == 0 and v3.year == 0 and v4.year == 0:
+                if len(v1_total_query) != 1:
+                    v1 = vr
 
-            my_list = [v1.year, v2.year, v3.year, v4.year]
-            max_value = max(my_list)
-            max_index = my_list.index(max_value)
-            min_value = min(i for i in my_list if i > 0)
-            min_index = my_list.index(min_value)
+                if len(v2_total_query) != 1:
+                    v2 = vr
 
-            # COST MIN AND MAX
-            my_cost_list = [v1.cost, v2.cost, v3.cost, v4.cost]
-            max_cost_value = max(my_cost_list)
-            max_cost_index = my_cost_list.index(max_cost_value)
-            min_cost_value = min(i for i in my_cost_list if i > 0)
-            min_cost_index = my_cost_list.index(min_cost_value)
+                if len(v3_total_query) != 1:
+                    v3 = vr
 
-            # BATTERY SIZE MIN AND MAX
-            my_battery_list = [v1.batterySize, v2.batterySize, v3.batterySize, v4.batterySize]
-            max_battery_value = max(my_battery_list)
-            max_battery_index = my_battery_list.index(max_battery_value)
-            min_battery_value = min(i for i in my_battery_list if i > 0)
-            min_battery_index = my_battery_list.index(min_battery_value)
+                if len(v4_total_query) != 1:
+                    v4 = vr
+            else:
+                my_list = [v1.year, v2.year, v3.year, v4.year]
+                max_value = max(my_list)
+                max_index = my_list.index(max_value)
+                min_value = min(i for i in my_list if i > 0)
+                min_index = my_list.index(min_value)
 
-            # WLTP RANGE MIN AND MAX
-            my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range, v4.WLTP_range]
-            max_range_value = max(my_range_list)
-            max_range_index = my_range_list.index(max_range_value)
-            min_range_value = min(i for i in my_range_list if i > 0)
-            min_range_index = my_range_list.index(min_range_value)
+                # COST MIN AND MAX
+                my_cost_list = [v1.cost, v2.cost, v3.cost, v4.cost]
+                max_cost_value = max(my_cost_list)
+                max_cost_index = my_cost_list.index(max_cost_value)
+                min_cost_value = min(i for i in my_cost_list if i > 0)
+                min_cost_index = my_cost_list.index(min_cost_value)
 
-            # POWER MIN AND MAX
-            my_power_list = [v1.power, v2.power, v3.power, v4.power]
-            max_power_value = max(my_power_list)
-            max_power_index = my_power_list.index(max_power_value)
-            min_power_value = min(i for i in my_power_list if i > 0)
-            min_power_index = my_power_list.index(min_power_value)
+                # BATTERY SIZE MIN AND MAX
+                my_battery_list = [v1.batterySize, v2.batterySize, v3.batterySize, v4.batterySize]
+                max_battery_value = max(my_battery_list)
+                max_battery_index = my_battery_list.index(max_battery_value)
+                min_battery_value = min(i for i in my_battery_list if i > 0)
+                min_battery_index = my_battery_list.index(min_battery_value)
 
-            self.response.write('</br>Max Index = ' + str(max_power_index))
-            self.response.write('</br>Max Power = ' + str(max_power_value))
-            self.response.write('</br>Min Index = ' + str(min_power_index))
-            self.response.write('</br>Min Power = ' + str(min_power_value))
+                # WLTP RANGE MIN AND MAX
+                my_range_list = [v1.WLTP_range, v2.WLTP_range, v3.WLTP_range, v4.WLTP_range]
+                max_range_value = max(my_range_list)
+                max_range_index = my_range_list.index(max_range_value)
+                min_range_value = min(i for i in my_range_list if i > 0)
+                min_range_index = my_range_list.index(min_range_value)
 
-            # YEAR LOGICAL STYLING
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-                yearStyle3 = 'text-success font-weight-bold'
-                yearStyle4 = 'text-success font-weight-bold'
-            elif max_index == 0:
-                yearStyle1 = 'text-success font-weight-bold'
-            elif max_index == 1:
-                yearStyle2 = 'text-success font-weight-bold'
-            elif max_index == 2:
-                yearStyle3 = 'text-success font-weight-bold'
-            elif max_index == 3:
-                yearStyle4 = 'text-success font-weight-bold'
+                # POWER MIN AND MAX
+                my_power_list = [v1.power, v2.power, v3.power, v4.power]
+                max_power_value = max(my_power_list)
+                max_power_index = my_power_list.index(max_power_value)
+                min_power_value = min(i for i in my_power_list if i > 0)
+                min_power_index = my_power_list.index(min_power_value)
 
-            if max_index == min_index:
-                yearStyle1 = 'text-success font-weight-bold'
-                yearStyle2 = 'text-success font-weight-bold'
-                yearStyle3 = 'text-success font-weight-bold'
-                yearStyle4 = 'text-success font-weight-bold'
-            elif min_index == 0:
-                yearStyle1 = 'text-danger font-weight-bold'
-            elif min_index == 1:
-                yearStyle2 = 'text-danger font-weight-bold'
-            elif min_index == 2:
-                yearStyle3 = 'text-danger font-weight-bold'
-            elif min_index == 3:
-                yearStyle4 = 'text-danger font-weight-bold'
+                self.response.write('</br>Max Index = ' + str(max_power_index))
+                self.response.write('</br>Max Power = ' + str(max_power_value))
+                self.response.write('</br>Min Index = ' + str(min_power_index))
+                self.response.write('</br>Min Power = ' + str(min_power_value))
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearStyle1 = ''
+                # YEAR LOGICAL STYLING
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle3 = 'text-success font-weight-bold'
+                    yearStyle4 = 'text-success font-weight-bold'
+                elif max_index == 0:
+                    yearStyle1 = 'text-success font-weight-bold'
+                elif max_index == 1:
+                    yearStyle2 = 'text-success font-weight-bold'
+                elif max_index == 2:
+                    yearStyle3 = 'text-success font-weight-bold'
+                elif max_index == 3:
+                    yearStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearStyle2 = ''
+                if max_index == min_index:
+                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle3 = 'text-success font-weight-bold'
+                    yearStyle4 = 'text-success font-weight-bold'
+                elif min_index == 0:
+                    yearStyle1 = 'text-danger font-weight-bold'
+                elif min_index == 1:
+                    yearStyle2 = 'text-danger font-weight-bold'
+                elif min_index == 2:
+                    yearStyle3 = 'text-danger font-weight-bold'
+                elif min_index == 3:
+                    yearStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                yearStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearStyle1 = ''
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                yearStyle4 = ''
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearStyle2 = ''
 
-            # COST LOGIC FOR STYLING
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost3 = 'text-success font-weight-bold'
-                yearCost4 = 'text-success font-weight-bold'
-            elif max_cost_index == 0:
-                yearCost1 = 'text-danger font-weight-bold'
-            elif max_cost_index == 1:
-                yearCost2 = 'text-danger font-weight-bold'
-            elif max_cost_index == 2:
-                yearCost3 = 'text-danger font-weight-bold'
-            elif max_cost_index == 3:
-                yearCost4 = 'text-danger font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    yearStyle3 = ''
 
-            if max_cost_index == min_cost_index:
-                yearCost1 = 'text-success font-weight-bold'
-                yearCost2 = 'text-success font-weight-bold'
-                yearCost3 = 'text-success font-weight-bold'
-                yearCost4 = 'text-success font-weight-bold'
-            elif min_cost_index == 0:
-                yearCost1 = 'text-success font-weight-bold'
-            elif min_cost_index == 1:
-                yearCost2 = 'text-success font-weight-bold'
-            elif min_cost_index == 2:
-                yearCost3 = 'text-success font-weight-bold'
-            elif min_cost_index == 3:
-                yearCost4 = 'text-success font-weight-bold'
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    yearStyle4 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                yearCost1 = ''
+                # COST LOGIC FOR STYLING
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost3 = 'text-success font-weight-bold'
+                    yearCost4 = 'text-success font-weight-bold'
+                elif max_cost_index == 0:
+                    yearCost1 = 'text-danger font-weight-bold'
+                elif max_cost_index == 1:
+                    yearCost2 = 'text-danger font-weight-bold'
+                elif max_cost_index == 2:
+                    yearCost3 = 'text-danger font-weight-bold'
+                elif max_cost_index == 3:
+                    yearCost4 = 'text-danger font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                yearCost2 = ''
+                if max_cost_index == min_cost_index:
+                    yearCost1 = 'text-success font-weight-bold'
+                    yearCost2 = 'text-success font-weight-bold'
+                    yearCost3 = 'text-success font-weight-bold'
+                    yearCost4 = 'text-success font-weight-bold'
+                elif min_cost_index == 0:
+                    yearCost1 = 'text-success font-weight-bold'
+                elif min_cost_index == 1:
+                    yearCost2 = 'text-success font-weight-bold'
+                elif min_cost_index == 2:
+                    yearCost3 = 'text-success font-weight-bold'
+                elif min_cost_index == 3:
+                    yearCost4 = 'text-success font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                yearCost3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    yearCost1 = ''
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                yearCost4 = ''
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    yearCost2 = ''
 
-            # BATTERY LOGIC FOR STYLING
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle3 = 'text-success font-weight-bold'
-                BatteryStyle4 = 'text-success font-weight-bold'
-            elif max_battery_index == 0:
-                BatteryStyle1 = 'text-success font-weight-bold'
-            elif max_battery_index == 1:
-                BatteryStyle2 = 'text-success font-weight-bold'
-            elif max_battery_index == 2:
-                BatteryStyle3 = 'text-success font-weight-bold'
-            elif max_battery_index == 3:
-                BatteryStyle4 = 'text-success font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    yearCost3 = ''
 
-            if max_battery_index == min_battery_index:
-                BatteryStyle1 = 'text-success font-weight-bold'
-                BatteryStyle2 = 'text-success font-weight-bold'
-                BatteryStyle3 = 'text-success font-weight-bold'
-                BatteryStyle4 = 'text-success font-weight-bold'
-            elif min_battery_index == 0:
-                BatteryStyle1 = 'text-danger font-weight-bold'
-            elif min_battery_index == 1:
-                BatteryStyle2 = 'text-danger font-weight-bold'
-            elif min_battery_index == 2:
-                BatteryStyle3 = 'text-danger font-weight-bold'
-            elif min_battery_index == 3:
-                BatteryStyle4 = 'text-danger font-weight-bold'
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    yearCost4 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                BatteryStyle1 = ''
+                # BATTERY LOGIC FOR STYLING
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                    BatteryStyle4 = 'text-success font-weight-bold'
+                elif max_battery_index == 0:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                elif max_battery_index == 1:
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                elif max_battery_index == 2:
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                elif max_battery_index == 3:
+                    BatteryStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                BatteryStyle2 = ''
+                if max_battery_index == min_battery_index:
+                    BatteryStyle1 = 'text-success font-weight-bold'
+                    BatteryStyle2 = 'text-success font-weight-bold'
+                    BatteryStyle3 = 'text-success font-weight-bold'
+                    BatteryStyle4 = 'text-success font-weight-bold'
+                elif min_battery_index == 0:
+                    BatteryStyle1 = 'text-danger font-weight-bold'
+                elif min_battery_index == 1:
+                    BatteryStyle2 = 'text-danger font-weight-bold'
+                elif min_battery_index == 2:
+                    BatteryStyle3 = 'text-danger font-weight-bold'
+                elif min_battery_index == 3:
+                    BatteryStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                BatteryStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    BatteryStyle1 = ''
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                BatteryStyle4 = ''
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    BatteryStyle2 = ''
 
-            # WLTP RANGE FOR STYLING
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle3 = 'text-success font-weight-bold'
-                RangeStyle4 = 'text-success font-weight-bold'
-            elif max_range_index == 0:
-                RangeStyle1 = 'text-success font-weight-bold'
-            elif max_range_index == 1:
-                RangeStyle2 = 'text-success font-weight-bold'
-            elif max_range_index == 2:
-                RangeStyle3 = 'text-success font-weight-bold'
-            elif max_range_index == 3:
-                RangeStyle4 = 'text-success font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    BatteryStyle3 = ''
 
-            if max_range_index == min_range_index:
-                RangeStyle1 = 'text-success font-weight-bold'
-                RangeStyle2 = 'text-success font-weight-bold'
-                RangeStyle3 = 'text-success font-weight-bold'
-                RangeStyle4 = 'text-success font-weight-bold'
-            elif min_range_index == 0:
-                RangeStyle1 = 'text-danger font-weight-bold'
-            elif min_range_index == 1:
-                RangeStyle2 = 'text-danger font-weight-bold'
-            elif min_range_index == 2:
-                RangeStyle3 = 'text-danger font-weight-bold'
-            elif min_range_index == 3:
-                RangeStyle4 = 'text-danger font-weight-bold'
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    BatteryStyle4 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                RangeStyle1 = ''
+                # WLTP RANGE FOR STYLING
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle3 = 'text-success font-weight-bold'
+                    RangeStyle4 = 'text-success font-weight-bold'
+                elif max_range_index == 0:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                elif max_range_index == 1:
+                    RangeStyle2 = 'text-success font-weight-bold'
+                elif max_range_index == 2:
+                    RangeStyle3 = 'text-success font-weight-bold'
+                elif max_range_index == 3:
+                    RangeStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                RangeStyle2 = ''
+                if max_range_index == min_range_index:
+                    RangeStyle1 = 'text-success font-weight-bold'
+                    RangeStyle2 = 'text-success font-weight-bold'
+                    RangeStyle3 = 'text-success font-weight-bold'
+                    RangeStyle4 = 'text-success font-weight-bold'
+                elif min_range_index == 0:
+                    RangeStyle1 = 'text-danger font-weight-bold'
+                elif min_range_index == 1:
+                    RangeStyle2 = 'text-danger font-weight-bold'
+                elif min_range_index == 2:
+                    RangeStyle3 = 'text-danger font-weight-bold'
+                elif min_range_index == 3:
+                    RangeStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                RangeStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    RangeStyle1 = ''
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                RangeStyle4 = ''
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    RangeStyle2 = ''
 
-            # POWER FOR STYLING
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle3 = 'text-success font-weight-bold'
-                PowerStyle4 = 'text-success font-weight-bold'
-            elif max_power_index == 0:
-                PowerStyle1 = 'text-success font-weight-bold'
-            elif max_power_index == 1:
-                PowerStyle2 = 'text-success font-weight-bold'
-            elif max_power_index == 2:
-                PowerStyle3 = 'text-success font-weight-bold'
-            elif max_power_index == 3:
-                PowerStyle4 = 'text-success font-weight-bold'
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    RangeStyle3 = ''
 
-            if max_power_index == min_power_index:
-                PowerStyle1 = 'text-success font-weight-bold'
-                PowerStyle2 = 'text-success font-weight-bold'
-                PowerStyle3 = 'text-success font-weight-bold'
-                PowerStyle4 = 'text-success font-weight-bold'
-            elif min_power_index == 0:
-                PowerStyle1 = 'text-danger font-weight-bold'
-            elif min_power_index == 1:
-                PowerStyle2 = 'text-danger font-weight-bold'
-            elif min_power_index == 2:
-                PowerStyle3 = 'text-danger font-weight-bold'
-            elif min_power_index == 3:
-                PowerStyle4 = 'text-danger font-weight-bold'
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    RangeStyle4 = ''
 
-            if len(v1_total_query) != 1:
-                v1 = vr
-                PowerStyle1 = ''
+                # POWER FOR STYLING
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle3 = 'text-success font-weight-bold'
+                    PowerStyle4 = 'text-success font-weight-bold'
+                elif max_power_index == 0:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                elif max_power_index == 1:
+                    PowerStyle2 = 'text-success font-weight-bold'
+                elif max_power_index == 2:
+                    PowerStyle3 = 'text-success font-weight-bold'
+                elif max_power_index == 3:
+                    PowerStyle4 = 'text-success font-weight-bold'
 
-            if len(v2_total_query) != 1:
-                v2 = vr
-                PowerStyle2 = ''
+                if max_power_index == min_power_index:
+                    PowerStyle1 = 'text-success font-weight-bold'
+                    PowerStyle2 = 'text-success font-weight-bold'
+                    PowerStyle3 = 'text-success font-weight-bold'
+                    PowerStyle4 = 'text-success font-weight-bold'
+                elif min_power_index == 0:
+                    PowerStyle1 = 'text-danger font-weight-bold'
+                elif min_power_index == 1:
+                    PowerStyle2 = 'text-danger font-weight-bold'
+                elif min_power_index == 2:
+                    PowerStyle3 = 'text-danger font-weight-bold'
+                elif min_power_index == 3:
+                    PowerStyle4 = 'text-danger font-weight-bold'
 
-            if len(v3_total_query) != 1:
-                v3 = vr
-                PowerStyle3 = ''
+                if len(v1_total_query) != 1:
+                    v1 = vr
+                    PowerStyle1 = ''
 
-            if len(v4_total_query) != 1:
-                v4 = vr
-                PowerStyle4 = ''
+                if len(v2_total_query) != 1:
+                    v2 = vr
+                    PowerStyle2 = ''
+
+                if len(v3_total_query) != 1:
+                    v3 = vr
+                    PowerStyle3 = ''
+
+                if len(v4_total_query) != 1:
+                    v4 = vr
+                    PowerStyle4 = ''
 
             template_values = {
                 'user': user,
