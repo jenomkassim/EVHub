@@ -113,15 +113,6 @@ class CompareCars(webapp2.RequestHandler):
             vehicle_4 = self.request.get('vehicle_4')
             vehicle_4_year = self.request.get('vehicle_4_year')
 
-        # self.response.write('V1 = ' + vehicle_1)
-        # self.response.write('<br/>V1 Year = ' + str(vehicle_1_year))
-        # self.response.write('<br/>V2 = ' + vehicle_2)
-        # self.response.write('<br/>V2 Year = ' + str(vehicle_2_year))
-        # self.response.write('<br/>V3 = ' + vehicle_3)
-        # self.response.write('<br/>V3 Year = ' + vehicle_3_year)
-        # self.response.write('<br/>V4 = ' + vehicle_4)
-        # self.response.write('<br/>V4 Year = ' + str(vehicle_4_year))
-
         car_query = Vehicles.query()
         vehicle_1_query = Vehicles.query(Vehicles.name == vehicle_1).fetch(keys_only=True)
         vehicle_1_year_query = car_query.filter(Vehicles.year == int(vehicle_1_year)).fetch(keys_only=True)
@@ -212,11 +203,6 @@ class CompareCars(webapp2.RequestHandler):
                 max_power_index = my_power_list.index(max_power_value)
                 min_power_value = min(i for i in my_power_list if i > 0)
                 min_power_index = my_power_list.index(min_power_value)
-
-                self.response.write('</br>Max Index = ' + str(max_power_index))
-                self.response.write('</br>Max Power = ' + str(max_power_value))
-                self.response.write('</br>Min Index = ' + str(min_power_index))
-                self.response.write('</br>Min Power = ' + str(min_power_value))
 
                 # YEAR LOGIC FOR STYLING
                 if max_index == min_index:
@@ -487,11 +473,6 @@ class CompareCars(webapp2.RequestHandler):
                 max_power_index = my_power_list.index(max_power_value)
                 min_power_value = min(i for i in my_power_list if i > 0)
                 min_power_index = my_power_list.index(min_power_value)
-
-                self.response.write('</br>Max Index = ' + str(max_power_index))
-                self.response.write('</br>Max Power = ' + str(max_power_value))
-                self.response.write('</br>Min Index = ' + str(min_power_index))
-                self.response.write('</br>Min Power = ' + str(min_power_value))
 
                 # YEAR LOGICAL STYLING
                 if max_index == min_index:
@@ -791,11 +772,6 @@ class CompareCars(webapp2.RequestHandler):
                 max_power_index = my_power_list.index(max_power_value)
                 min_power_value = min(i for i in my_power_list if i > 0)
                 min_power_index = my_power_list.index(min_power_value)
-
-                self.response.write('</br>Max Index = ' + str(max_power_index))
-                self.response.write('</br>Max Power = ' + str(max_power_value))
-                self.response.write('</br>Min Index = ' + str(min_power_index))
-                self.response.write('</br>Min Power = ' + str(min_power_value))
 
                 if max_index == min_index:
                     yearStyle1 = 'text-success font-weight-bold'
@@ -1098,11 +1074,6 @@ class CompareCars(webapp2.RequestHandler):
                 max_power_index = my_power_list.index(max_power_value)
                 min_power_value = min(i for i in my_power_list if i > 0)
                 min_power_index = my_power_list.index(min_power_value)
-
-                self.response.write('</br>Max Index = ' + str(max_power_index))
-                self.response.write('</br>Max Power = ' + str(max_power_value))
-                self.response.write('</br>Min Index = ' + str(min_power_index))
-                self.response.write('</br>Min Power = ' + str(min_power_value))
 
                 # YEAR LOGICAL STYLING
                 if max_index == min_index:

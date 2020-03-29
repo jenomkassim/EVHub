@@ -5,6 +5,7 @@ import webapp2
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
+from review import ReviewAndRating
 from vehicles import Vehicles
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -36,6 +37,19 @@ class CarDetails(webapp2.RequestHandler):
         car_id = hi.id()
 
         car_deets = ndb.Key('Vehicles', car_id).get()
+        car_deets2 = ndb.Key('Vehicles', car_id)
+
+        # self.response.out.write(car_deets2)
+
+        query = Vehicles.query(ancestor=car_deets2)
+        j = ''
+
+        # self.response.out.write(names)
+
+        # greetings = Vehicles.query(car_deets2).fetch()
+
+        # for greeting in greetings:
+        #     self.response.out.write(greeting.name)
 
         template_values = {
             'user': user,
@@ -43,7 +57,9 @@ class CarDetails(webapp2.RequestHandler):
             'login_status': login_status,
             'car_deets': car_deets,
             'idd': idd,
-            'error_message': error_message
+            'error_message': error_message,
+            'query': query,
+            'j': j
         }
 
         template = JINJA_ENVIRONMENT.get_template('car-details.html')
@@ -56,6 +72,7 @@ class CarDetails(webapp2.RequestHandler):
         login_status = ''
         error_message = ''
         success_message = ''
+        review_message = ''
         user = users.get_current_user()
 
         if user:
@@ -98,15 +115,34 @@ class CarDetails(webapp2.RequestHandler):
             car_deets.key.delete()
             self.redirect('/search-cars')
 
-        # self.response.write('Name = ' + car_deets.name)
-        # self.response.write('<br/>Manufacturer = ' + car_deets.manufacturer)
-        # self.response.write('<br/>Year = ' + str(car_deets.year))
-        # self.response.write('<br/>Battery = ' + str(car_deets.batterySize))
-        # self.response.write('<br/>Range = ' + str(car_deets.WLTP_range))
-        # self.response.write('<br/>Cost = ' + str(car_deets.cost))
-        # self.response.write('<br/>Power = ' + str(car_deets.power))
+        if action == 'Review':
+            # user_review = self.request.get('user_review')
+            # user_rating = self.request.get('rating')
+            # self.response.write(user_review)
+            # self.response.write('</br>' + user_rating)
 
-        # self.redirect('/car-details?id=' + str(idd))
+            new_review = ReviewAndRating(
+                review=self.request.get('user_review'),
+                rating=int(self.request.get('rating'))
+            )
+
+            car_deets.review.append(new_review)
+            car_deets.put()
+            self.redirect('/car-details?id=' + str(idd))
+
+        if action == 'Delete Review':
+            index = int(self.request.get('index'))
+
+            # user = users.get_current_user()
+            # myuser_key = ndb.Key('MyUser', user.user_id())
+            # myuser = myuser_key.get()
+
+            del car_deets.review[index]
+            car_deets.put()
+            review_message = 'Review Deleted'
+
+            self.redirect('/car-details?id=' + str(idd))
+
         template_values = {
             'user': user,
             'url': url,
@@ -114,7 +150,8 @@ class CarDetails(webapp2.RequestHandler):
             'car_deets': car_deets,
             'idd': idd,
             'error_message': error_message,
-            'success_message': success_message
+            'success_message': success_message,
+            'review_message': review_message
         }
 
         template = JINJA_ENVIRONMENT.get_template('car-details.html')
