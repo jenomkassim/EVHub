@@ -22,6 +22,8 @@ class CarDetails(webapp2.RequestHandler):
         url = ''
         login_status = ''
         error_message = ''
+        count = 0
+        add = 0
         user = users.get_current_user()
 
         if user:
@@ -39,17 +41,18 @@ class CarDetails(webapp2.RequestHandler):
         car_deets = ndb.Key('Vehicles', car_id).get()
         car_deets2 = ndb.Key('Vehicles', car_id)
 
-        # self.response.out.write(car_deets2)
-
         query = Vehicles.query(ancestor=car_deets2)
         j = ''
 
-        # self.response.out.write(names)
+        for a in query:
+            for b in a.review:
+                count = count + 1
+                add = add + float(b.rating)
 
-        # greetings = Vehicles.query(car_deets2).fetch()
-
-        # for greeting in greetings:
-        #     self.response.out.write(greeting.name)
+        if count > 0:
+            average = str(add / count) + ' / 10'
+        else:
+            average = 'No review'
 
         template_values = {
             'user': user,
@@ -59,7 +62,8 @@ class CarDetails(webapp2.RequestHandler):
             'idd': idd,
             'error_message': error_message,
             'query': query,
-            'j': j
+            'j': j,
+            'average': average
         }
 
         template = JINJA_ENVIRONMENT.get_template('car-details.html')
@@ -116,10 +120,6 @@ class CarDetails(webapp2.RequestHandler):
             self.redirect('/search-cars')
 
         if action == 'Review':
-            # user_review = self.request.get('user_review')
-            # user_rating = self.request.get('rating')
-            # self.response.write(user_review)
-            # self.response.write('</br>' + user_rating)
 
             new_review = ReviewAndRating(
                 review=self.request.get('user_review'),
