@@ -236,8 +236,6 @@ class CompareCars(webapp2.RequestHandler):
         # CALCULATE IF NO INPUT IN VEHICLE 3 AND 4
         if vehicle_3 == "" and vehicle_4 == "":
 
-            self.response.write('1st Logic running')
-
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v3 = vr
@@ -550,7 +548,6 @@ class CompareCars(webapp2.RequestHandler):
         # CALCULATE IF THERE IS AN INPUT IN VEHICLE 3 AND NONE IN 4
         elif vehicle_3 != "" and vehicle_4 == "":
 
-            self.response.write('2nd Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v4 = vr
@@ -902,7 +899,6 @@ class CompareCars(webapp2.RequestHandler):
         # CALCULATE IF THERE IS NO INPUT IN VEHICLE 3 BUT THERE IS AN INPUT IN 4
         elif vehicle_3 == "" and vehicle_4 != "":
 
-            self.response.write('3rd Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v3 = vr
@@ -1254,8 +1250,6 @@ class CompareCars(webapp2.RequestHandler):
 
         # CALCULATE IF THERE IS AN INPUT IN BOTH VEHICLE 3 AND 4
         elif vehicle_3 != "" and vehicle_4 != "":
-
-            self.response.write('4th Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
 
