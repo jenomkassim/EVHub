@@ -75,6 +75,11 @@ class CompareCars(webapp2.RequestHandler):
         v2Link = True
         v3Link = True
         v4Link = True
+        v1AverageStyle = ''
+        v2AverageStyle = ''
+        v3AverageStyle = ''
+        v4AverageStyle = ''
+
 
         if user:
             url = users.create_logout_url(self.request.uri)
@@ -184,54 +189,54 @@ class CompareCars(webapp2.RequestHandler):
             v2Average = 'N/A'
             v2AverageValue = 0
 
-            # ---------------------------------------------------------------------------------------------------------------------------
+        # ---------------------------------------------------------------------------------------------------------------------------
 
-            # AVERAGE FOR VEHICLE 3
-            count3 = 0
-            add3 = 0
-            v3Average = ''
-            v3AverageValue = ''
+        # AVERAGE FOR VEHICLE 3
+        count3 = 0
+        add3 = 0
+        v3Average = ''
+        v3AverageValue = ''
 
-            for a in v3_total_query:
-                for b in a.review:
-                    count3 = count3 + 1
-                    add3 = add3 + float(b.rating)
+        for a in v3_total_query:
+            for b in a.review:
+                count3 = count3 + 1
+                add3 = add3 + float(b.rating)
 
-            if count3 > 0:
-                v3Average = str(round((add3 / count3), 1))
-                v3AverageValue = v3Average
+        if count3 > 0:
+            v3Average = str(round((add3 / count3), 1))
+            v3AverageValue = v3Average
 
-            else:
-                v3Average = 'N/A'
-                v3AverageValue = 0
-
-                # ---------------------------------------------------------------------------------------------------------------------------------------
-
-                # AVERAGE FOR VEHICLE 4
-                count4 = 0
-                add4 = 0
-                v4Average = ''
-                v4AverageValue = ''
-
-                for a in v4_total_query:
-                    for b in a.review:
-                        count4 = count4 + 1
-                        add4 = add4 + float(b.rating)
-
-                if count4 > 0:
-                    v4Average = str(round((add4 / count4), 1))
-                    v4AverageValue = v4Average
-
-                else:
-                    v4Average = 'N/A'
-                    v4AverageValue = 0
+        else:
+            v3Average = 'N/A'
+            v3AverageValue = 0
 
         # ---------------------------------------------------------------------------------------------------------------------------------------
 
+        # AVERAGE FOR VEHICLE 4
+        count4 = 0
+        add4 = 0
+        v4Average = ''
+        v4AverageValue = ''
 
+        for a in v4_total_query:
+            for b in a.review:
+                count4 = count4 + 1
+                add4 = add4 + float(b.rating)
+
+        if count4 > 0:
+            v4Average = str(round((add4 / count4), 1))
+            v4AverageValue = v4Average
+
+        else:
+            v4Average = 'N/A'
+            v4AverageValue = 0
+
+        # ---------------------------------------------------------------------------------------------------------------------------------------
 
         # CALCULATE IF NO INPUT IN VEHICLE 3 AND 4
         if vehicle_3 == "" and vehicle_4 == "":
+
+            self.response.write('1st Logic running')
 
             vrv = VehicleResultValues()
             vr = VehicleResult()
@@ -257,6 +262,13 @@ class CompareCars(webapp2.RequestHandler):
                     v2 = vr
                     PowerStyle2 = ''
             else:
+                # AVERAGE RATING
+                my_average = [float(v1AverageValue), float(v2AverageValue)]
+                max_average = max(my_average)
+                max_average_index = my_average.index(max_average)
+                min_average = min(i for i in my_average if i > 0)
+                min_average_index = my_average.index(min_average)
+
                 # YEAR MIN AND MAX
                 my_list = [v1.year, v2.year]
                 max_value = max(my_list)
@@ -297,25 +309,25 @@ class CompareCars(webapp2.RequestHandler):
                     yearStyle1 = 'text-success font-weight-bold'
                     yearStyle2 = 'text-success font-weight-bold'
                 elif max_index == 0:
-                    yearStyle1 = 'text-success font-weight-bold'
+                    yearStyle1 = 'text-danger font-weight-bold'
                 elif max_index == 1:
-                    yearStyle2 = 'text-success font-weight-bold'
+                    yearStyle2 = 'text-danger font-weight-bold'
                 elif max_index == 2:
-                    yearStyle3 = 'text-success font-weight-bold'
+                    yearStyle3 = 'text-danger font-weight-bold'
                 elif max_index == 3:
-                    yearStyle4 = 'text-success font-weight-bold'
+                    yearStyle4 = 'text-danger font-weight-bold'
 
                 if max_index == min_index:
                     yearStyle1 = 'text-success font-weight-bold'
                     yearStyle2 = 'text-success font-weight-bold'
                 elif min_index == 0:
-                    yearStyle1 = 'text-danger font-weight-bold'
+                    yearStyle1 = 'text-success font-weight-bold'
                 elif min_index == 1:
-                    yearStyle2 = 'text-danger font-weight-bold'
+                    yearStyle2 = 'text-success font-weight-bold'
                 elif min_index == 2:
-                    yearStyle3 = 'text-danger font-weight-bold'
+                    yearStyle3 = 'text-success font-weight-bold'
                 elif min_index == 3:
-                    yearStyle4 = 'text-danger font-weight-bold'
+                    yearStyle4 = 'text-success font-weight-bold'
 
                 if len(v1_total_query) != 1:
                     v1 = vr
@@ -424,6 +436,40 @@ class CompareCars(webapp2.RequestHandler):
                     v2 = vr
                     RangeStyle2 = ''
 
+                # ---------------------------------------------------------------------------------------------------------------------------------
+
+                # AVERAGE VALUE STYLING
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 0:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 1:
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 2:
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 3:
+                    v4AverageStyle = 'text-success font-weight-bold'
+
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif min_average_index == 0:
+                    v1AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 1:
+                    v2AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 2:
+                    v3AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 3:
+                    v4AverageStyle = 'text-danger font-weight-bold'
+
+                if v1AverageValue <= 0:
+                    v1AverageStyle = ''
+
+                if v2AverageValue <= 0:
+                    v2AverageStyle = ''
+
+                # ---------------------------------------------------------------------------------------------------------------------------------
                 # POWER FOR STYLING
                 if max_power_index == min_power_index:
                     PowerStyle1 = 'text-success font-weight-bold'
@@ -494,6 +540,8 @@ class CompareCars(webapp2.RequestHandler):
                 'success_message': success_message,
                 'v1Average': v1Average,
                 'v2Average': v2Average,
+                'v1AverageStyle': v1AverageStyle,
+                'v2AverageStyle': v2AverageStyle,
             }
 
             template = JINJA_ENVIRONMENT.get_template('comparecar.html')
@@ -502,6 +550,7 @@ class CompareCars(webapp2.RequestHandler):
         # CALCULATE IF THERE IS AN INPUT IN VEHICLE 3 AND NONE IN 4
         elif vehicle_3 != "" and vehicle_4 == "":
 
+            self.response.write('2nd Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v4 = vr
@@ -529,6 +578,13 @@ class CompareCars(webapp2.RequestHandler):
                 if len(v3_total_query) != 1:
                     v3 = vr
             else:
+                # AVERAGE RATING
+                my_average = [float(v1AverageValue), float(v2AverageValue), float(v3AverageValue)]
+                max_average = max(my_average)
+                max_average_index = my_average.index(max_average)
+                min_average = min(i for i in my_average if i > 0)
+                min_average_index = my_average.index(min_average)
+
                 # YEAR LOGIC CALCULATION
                 my_list = [v1.year, v2.year, v3.year]
                 max_value = max(my_list)
@@ -718,6 +774,45 @@ class CompareCars(webapp2.RequestHandler):
                 if len(v3_total_query) != 1:
                     v3 = vr
                     RangeStyle3 = ''
+                # ---------------------------------------------------------------------------------------------------------------------------------
+
+                # AVERAGE VALUE STYLING
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 0:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 1:
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 2:
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 3:
+                    v4AverageStyle = 'text-success font-weight-bold'
+
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif min_average_index == 0:
+                    v1AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 1:
+                    v2AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 2:
+                    v3AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 3:
+                    v4AverageStyle = 'text-danger font-weight-bold'
+
+                if v1AverageValue <= 0:
+                    v1AverageStyle = ''
+
+                if v2AverageValue <= 0:
+                    v2AverageStyle = ''
+
+                if v3AverageValue <= 0:
+                    v3AverageStyle = ''
+
+                # ---------------------------------------------------------------------------------------------------------------------------------
 
                 # POWER FOR STYLING
                 if max_power_index == min_power_index:
@@ -792,7 +887,13 @@ class CompareCars(webapp2.RequestHandler):
                 'v3Link': v3Link,
                 'v4Link': v4Link,
                 'error_message': error_message,
-                'success_message': success_message
+                'success_message': success_message,
+                'v1Average': v1Average,
+                'v2Average': v2Average,
+                'v3Average': v3Average,
+                'v1AverageStyle': v1AverageStyle,
+                'v2AverageStyle': v2AverageStyle,
+                'v3AverageStyle': v3AverageStyle,
             }
 
             template = JINJA_ENVIRONMENT.get_template('comparecar.html')
@@ -800,6 +901,8 @@ class CompareCars(webapp2.RequestHandler):
 
         # CALCULATE IF THERE IS NO INPUT IN VEHICLE 3 BUT THERE IS AN INPUT IN 4
         elif vehicle_3 == "" and vehicle_4 != "":
+
+            self.response.write('3rd Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
             v3 = vr
@@ -827,6 +930,12 @@ class CompareCars(webapp2.RequestHandler):
                 if len(v3_total_query) != 1:
                     v3 = vr
             else:
+                # AVERAGE RATING
+                my_average = [float(v1AverageValue), float(v2AverageValue), float(0), float(v4AverageValue)]
+                max_average = max(my_average)
+                max_average_index = my_average.index(max_average)
+                min_average = min(i for i in my_average if i > 0)
+                min_average_index = my_average.index(min_average)
 
                 # YEAR MIN MAX
                 my_list = [v1.year, v2.year, 0, v4.year]
@@ -855,6 +964,46 @@ class CompareCars(webapp2.RequestHandler):
                 max_range_index = my_range_list.index(max_range_value)
                 min_range_value = min(i for i in my_range_list if i > 0)
                 min_range_index = my_range_list.index(min_range_value)
+
+                # ---------------------------------------------------------------------------------------------------------------------------------
+
+                # AVERAGE VALUE STYLING
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v4AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 0:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 1:
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 2:
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 3:
+                    v4AverageStyle = 'text-success font-weight-bold'
+
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v4AverageStyle = 'text-success font-weight-bold'
+                elif min_average_index == 0:
+                    v1AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 1:
+                    v2AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 2:
+                    v3AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 3:
+                    v4AverageStyle = 'text-danger font-weight-bold'
+
+                if v1AverageValue <= 0:
+                    v1AverageStyle = ''
+
+                if v2AverageValue <= 0:
+                    v2AverageStyle = ''
+
+                if v4AverageValue <= 0:
+                    v4AverageStyle = ''
+
+                # ---------------------------------------------------------------------------------------------------------------------------------
 
                 # POWER MIN AND MAX
                 my_power_list = [v1.power, v2.power, 0, v4.power]
@@ -1091,7 +1240,13 @@ class CompareCars(webapp2.RequestHandler):
                 'v3Link': v3Link,
                 'v4Link': v4Link,
                 'error_message': error_message,
-                'success_message': success_message
+                'success_message': success_message,
+                'v1Average': v1Average,
+                'v2Average': v2Average,
+                'v4Average': v4Average,
+                'v1AverageStyle': v1AverageStyle,
+                'v2AverageStyle': v2AverageStyle,
+                'v4AverageStyle': v4AverageStyle,
             }
 
             template = JINJA_ENVIRONMENT.get_template('comparecar.html')
@@ -1099,6 +1254,8 @@ class CompareCars(webapp2.RequestHandler):
 
         # CALCULATE IF THERE IS AN INPUT IN BOTH VEHICLE 3 AND 4
         elif vehicle_3 != "" and vehicle_4 != "":
+
+            self.response.write('4th Logic running')
             vrv = VehicleResultValues()
             vr = VehicleResult()
 
@@ -1131,6 +1288,15 @@ class CompareCars(webapp2.RequestHandler):
                 if len(v4_total_query) != 1:
                     v4 = vr
             else:
+                # AVERAGE RATING
+                my_average = [float(v1AverageValue), float(v2AverageValue), float(v3AverageValue),
+                              float(v4AverageValue)]
+                max_average = max(my_average)
+                max_average_index = my_average.index(max_average)
+                min_average = min(i for i in my_average if i > 0)
+                min_average_index = my_average.index(min_average)
+
+                # MIN AND MAX YEAR
                 my_list = [v1.year, v2.year, v3.year, v4.year]
                 max_value = max(my_list)
                 max_index = my_list.index(max_value)
@@ -1345,6 +1511,51 @@ class CompareCars(webapp2.RequestHandler):
                     v4 = vr
                     RangeStyle4 = ''
 
+                # ---------------------------------------------------------------------------------------------------------------------------------
+
+                # AVERAGE VALUE STYLING
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v3AverageStyle = 'text-success font-weight-bold'
+                    v4AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 0:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 1:
+                    v2AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 2:
+                    v3AverageStyle = 'text-success font-weight-bold'
+                elif max_average_index == 3:
+                    v4AverageStyle = 'text-success font-weight-bold'
+
+                if max_average_index == min_average_index:
+                    v1AverageStyle = 'text-success font-weight-bold'
+                    v2AverageStyle = 'text-success font-weight-bold'
+                    v3AverageStyle = 'text-success font-weight-bold'
+                    v4AverageStyle = 'text-success font-weight-bold'
+                elif min_average_index == 0:
+                    v1AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 1:
+                    v2AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 2:
+                    v3AverageStyle = 'text-danger font-weight-bold'
+                elif min_average_index == 3:
+                    v4AverageStyle = 'text-danger font-weight-bold'
+
+                if v1AverageValue <= 0:
+                    v1AverageStyle = ''
+
+                if v2AverageValue <= 0:
+                    v2AverageStyle = ''
+
+                if v3AverageValue <= 0:
+                    v3AverageStyle = ''
+
+                if v4AverageValue <= 0:
+                    v4AverageStyle = ''
+
+                # ---------------------------------------------------------------------------------------------------------------------------------
+
                 # POWER FOR STYLING
                 if max_power_index == min_power_index:
                     PowerStyle1 = 'text-success font-weight-bold'
@@ -1424,7 +1635,16 @@ class CompareCars(webapp2.RequestHandler):
                 'v3Link': v3Link,
                 'v4Link': v4Link,
                 'error_message': error_message,
-                'success_message': success_message
+                'success_message': success_message,
+                'v1Average': v1Average,
+                'v2Average': v2Average,
+                'v3Average': v3Average,
+                'v4Average': v4Average,
+                'v1AverageStyle': v1AverageStyle,
+                'v2AverageStyle': v2AverageStyle,
+                'v3AverageStyle': v3AverageStyle,
+                'v4AverageStyle': v4AverageStyle,
+
             }
 
             template = JINJA_ENVIRONMENT.get_template('comparecar.html')
