@@ -161,15 +161,17 @@
                             <div class="row">
                                 <div class="col form-group">
                                     <textarea class="form-control" maxlength="1000" name="user_review"
-                                              placeholder="Type a review here (1,000 char max)" rows="7"></textarea>
+                                              placeholder="Type a review here (1,000 char max)" required
+                                              rows="7"></textarea>
                                 </div>
                             </div>
 
                             <!-- BOTTOM ROW OF FORM -->
                             <div class="row">
                                 <div class="col form-group">
+                                    <small class="text-danger">Select a rating below by clicking the stars</small>
                                     <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
-                                        <input id="star10" name="rating" type="radio" value="10"/>
+                                        <input id="star10" name="rating" required type="radio" value="10"/>
                                         <label for="star10" title="10 star"></label>
                                         <input id="star9" name="rating" type="radio" value="9"/>
                                         <label for="star9" title="9 star"></label>
@@ -233,7 +235,7 @@
 
                 <!--We will print the list of reviews that are attached to this car -->
                 {% for i in query %}
-                {% for j in i.review %}
+                {% for j in i.review[::-1] %}
                 <div>
                     <div class="row p-3 border m-4" style="border-radius: 20px;">
                         <div class="col-12">
@@ -326,14 +328,7 @@
                                 <span class="jenom float-left"></span>
                             </div>
                             {% endif %}
-                            {% if user %}
-                            <form action="/car-details?id={{ idd }}" method="post">
-                                <input name="index" type="hidden" value="{{ loop.index - 1 }}"/>
-                                <button class="btn delete-button float-right" name="button" type="submit"
-                                        value="Delete Review">Delete
-                                </button>
-                            </form>
-                            {% endif %}
+
                         </div>
 
                     </div>

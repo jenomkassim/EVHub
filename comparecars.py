@@ -142,6 +142,94 @@ class CompareCars(webapp2.RequestHandler):
         for i in v4_total_query:
             v4 = i
 
+        # ---------------------------------------------------------------------------------------------------------------------------
+
+        # AVERAGE FOR VEHICLE 1
+        count1 = 0
+        add1 = 0
+        v1Average = ''
+        v1AverageValue = ''
+
+        for a in v1_total_query:
+            for b in a.review:
+                count1 = count1 + 1
+                add1 = add1 + float(b.rating)
+
+        if count1 > 0:
+            v1Average = str(round((add1 / count1), 1))
+            v1AverageValue = v1Average
+
+        else:
+            v1Average = 'N/A'
+            v1AverageValue = 0
+
+        # ---------------------------------------------------------------------------------------------------------------------------
+
+        # AVERAGE FOR VEHICLE 2
+        count2 = 0
+        add2 = 0
+        v2Average = ''
+        v2AverageValue = ''
+
+        for a in v2_total_query:
+            for b in a.review:
+                count2 = count2 + 1
+                add2 = add2 + float(b.rating)
+
+        if count2 > 0:
+            v2Average = str(round((add2 / count2), 1))
+            v2AverageValue = v2Average
+
+        else:
+            v2Average = 'N/A'
+            v2AverageValue = 0
+
+            # ---------------------------------------------------------------------------------------------------------------------------
+
+            # AVERAGE FOR VEHICLE 3
+            count3 = 0
+            add3 = 0
+            v3Average = ''
+            v3AverageValue = ''
+
+            for a in v3_total_query:
+                for b in a.review:
+                    count3 = count3 + 1
+                    add3 = add3 + float(b.rating)
+
+            if count3 > 0:
+                v3Average = str(round((add3 / count3), 1))
+                v3AverageValue = v3Average
+
+            else:
+                v3Average = 'N/A'
+                v3AverageValue = 0
+
+                # ---------------------------------------------------------------------------------------------------------------------------------------
+
+                # AVERAGE FOR VEHICLE 4
+                count4 = 0
+                add4 = 0
+                v4Average = ''
+                v4AverageValue = ''
+
+                for a in v4_total_query:
+                    for b in a.review:
+                        count4 = count4 + 1
+                        add4 = add4 + float(b.rating)
+
+                if count4 > 0:
+                    v4Average = str(round((add4 / count4), 1))
+                    v4AverageValue = v4Average
+
+                else:
+                    v4Average = 'N/A'
+                    v4AverageValue = 0
+
+        # ---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
         # CALCULATE IF NO INPUT IN VEHICLE 3 AND 4
         if vehicle_3 == "" and vehicle_4 == "":
 
@@ -403,7 +491,9 @@ class CompareCars(webapp2.RequestHandler):
                 'v3Link': v3Link,
                 'v4Link': v4Link,
                 'error_message': error_message,
-                'success_message': success_message
+                'success_message': success_message,
+                'v1Average': v1Average,
+                'v2Average': v2Average,
             }
 
             template = JINJA_ENVIRONMENT.get_template('comparecar.html')

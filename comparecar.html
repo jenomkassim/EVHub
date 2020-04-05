@@ -46,6 +46,13 @@
 <section class="form-section-style">
 
     <div class="container border p-4 bg-white">
+        <div class="row">
+            <div class="col text-center mb-2">
+                <small class="text-center text-danger">The first two values to your left must be filled before a
+                    comparison can be performed
+                </small>
+            </div>
+        </div>
         <form action="/compare-cars" method="post">
             <!-- TOP ROW OF FORM -->
             <div class="row">
@@ -108,10 +115,10 @@
                 <p class="lead" style="font-weight: 500">User Rating</p>
             </div>
             <div class="col compare-attributes border-right">
-                A
+                {{ v1Average}}
             </div>
             <div class="col compare-attributes border-right">
-                B
+                {{ v2Average }}
             </div>
             <div class="col compare-attributes border-right">
                 C

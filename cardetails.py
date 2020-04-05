@@ -25,6 +25,7 @@ class CarDetails(webapp2.RequestHandler):
         count = 0
         add = 0
         user = users.get_current_user()
+        sortedReview = ''
 
         if user:
             url = users.create_logout_url(self.request.uri)
@@ -42,7 +43,9 @@ class CarDetails(webapp2.RequestHandler):
         car_deets2 = ndb.Key('Vehicles', car_id)
 
         query = Vehicles.query(ancestor=car_deets2)
+
         j = ''
+        finalreview = []
 
         for a in query:
             for b in a.review:
@@ -50,7 +53,7 @@ class CarDetails(webapp2.RequestHandler):
                 add = add + float(b.rating)
 
         if count > 0:
-            average = str(add / count) + ' / 10'
+            average = str(round((add / count), 1)) + ' / 10'
         else:
             average = 'No review'
 
@@ -63,7 +66,8 @@ class CarDetails(webapp2.RequestHandler):
             'error_message': error_message,
             'query': query,
             'j': j,
-            'average': average
+            'average': average,
+            'sortedReview': sortedReview
         }
 
         template = JINJA_ENVIRONMENT.get_template('car-details.html')
@@ -132,10 +136,6 @@ class CarDetails(webapp2.RequestHandler):
 
         if action == 'Delete Review':
             index = int(self.request.get('index'))
-
-            # user = users.get_current_user()
-            # myuser_key = ndb.Key('MyUser', user.user_id())
-            # myuser = myuser_key.get()
 
             del car_deets.review[index]
             car_deets.put()

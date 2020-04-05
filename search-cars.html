@@ -83,12 +83,12 @@
                     <div class="row form-group">
                         <div class="col">
                             <input class="form-control {{ year_lower_error_style }}" id="lower_year" name="lower_year"
-                                   type="number">
+                                   placeholder="2010" type="number">
                         </div>
                         <div class="col-1">-</div>
                         <div class="col">
                             <input class="form-control {{ year_higher_error_style }}" id="upper_year" name="upper_year"
-                                   type="number">
+                                   placeholder="2022" type="number">
                         </div>
                     </div>
                     <!--                    YEAR ERROR MESSAGE-->
@@ -100,12 +100,12 @@
                     <div class="row form-group">
                         <div class="col">
                             <input class="form-control {{ battery_lower_error_style }}" name="battery_lower" step="0.01"
-                                   type="number">
+                                   placeholder="50" type="number">
                         </div>
                         <div class="col-1">-</div>
                         <div class="col">
                             <input class="form-control {{ battery_higher_error_style }}" name="battery_upper"
-                                   step="0.01" type="number">
+                                   placeholder="550" step="0.01" type="number">
                         </div>
                     </div>
                     <!--                    BATTERY ERROR MESSAGE-->
@@ -116,11 +116,15 @@
                     <p class="filter-title">WLTP range(Km)</p>
                     <div class="row form-group">
                         <div class="col">
-                            <input class="form-control {{ range_lower_error_style }}" name="range_lower" type="number">
+                            <input class="form-control {{ range_lower_error_style }}" name="range_lower"
+                                   placeholder="200"
+                                   type="number">
                         </div>
                         <div class="col-1">-</div>
                         <div class="col">
-                            <input class="form-control {{ range_higher_error_style }}" name="range_upper" type="number">
+                            <input class="form-control {{ range_higher_error_style }}" name="range_upper"
+                                   placeholder="850"
+                                   type="number">
                         </div>
                     </div>
                     <!--                    RANGE ERROR MESSAGE-->
@@ -131,11 +135,15 @@
                     <p class="filter-title">Cost</p>
                     <div class="row form-group">
                         <div class="col">
-                            <input class="form-control {{ cost_lower_error_style }}" name="cost-lower" type="number">
+                            <input class="form-control {{ cost_lower_error_style }}" name="cost-lower"
+                                   placeholder="€20,000"
+                                   type="number">
                         </div>
                         <div class="col-1">-</div>
                         <div class="col">
-                            <input class="form-control {{ cost_higher_error_style }}" name="cost-upper" type="number">
+                            <input class="form-control {{ cost_higher_error_style }}" name="cost-upper"
+                                   placeholder="€80,000"
+                                   type="number">
                         </div>
                     </div>
                     <!--                    COST ERROR MESSAGE-->
@@ -146,11 +154,15 @@
                     <p class="filter-title">Power</p>
                     <div class="row form-group">
                         <div class="col">
-                            <input class="form-control {{ power_lower_error_style }}" name="power-lower" type="number">
+                            <input class="form-control {{ power_lower_error_style }}" name="power-lower"
+                                   placeholder="50"
+                                   type="number">
                         </div>
                         <div class="col-1">-</div>
                         <div class="col">
-                            <input class="form-control {{ power_upper_error_style }}" name="power-upper" type="number">
+                            <input class="form-control {{ power_upper_error_style }}" name="power-upper"
+                                   placeholder="300"
+                                   type="number">
                         </div>
                     </div>
                     <!--                    POWER ERROR MESSAGE-->

@@ -74,90 +74,91 @@
 <!-- END Hero -->
 
 <!-- FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
-<section class="form-section-style">
+<!--<section class="form-section-style">-->
 
-    <div class="container border p-4 bg-white">
-        <form action="/browse-cars" method="post">
-            <!-- TOP ROW OF FORM -->
-            <div class="row">
-                <div class="col form-group">
-                    <label for="vehicleName">Vehicle Name</label>
-                    <input class="form-control" id="vehicleName" name="vehicleName" type="text">
-                </div>
-                <div class="col form-group">
-                    <label for="manufacturer">Manufacturer</label>
-                    <input class="form-control" id="manufacturer" name="manufacturer" type="text">
-                </div>
-                <div class="col form-group">
-                    <label for="lower-year">Year</label>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" id="lower-year" name="lower-year" type="number">
-                        </div>
-                        <div class="col">
-                            <input class="form-control" id="upper-year" name="upper-year" type="number">
-                        </div>
-                    </div>
-                </div>
-                <div class="col form-group">
-                    <label for="battery-lower">Battery size (Kwh)</label>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" id="battery-lower" name="battery-lower" type="number">
-                        </div>
-                        <div class="col">
-                            <input class="form-control" id="battery-upper" name="battery-upper" type="number">
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--    <div class="container border p-4 bg-white">-->
+<!--        <form action="/browse-cars" method="post">-->
+<!--            &lt;!&ndash; TOP ROW OF FORM &ndash;&gt;-->
+<!--            <div class="row">-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="vehicleName">Vehicle Name</label>-->
+<!--                    <input class="form-control" id="vehicleName" name="vehicleName" type="text">-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="manufacturer">Manufacturer</label>-->
+<!--                    <input class="form-control" id="manufacturer" name="manufacturer" type="text">-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="lower-year">Year</label>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="lower-year" name="lower-year" type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="upper-year" name="upper-year" type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="battery-lower">Battery size (Kwh)</label>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="battery-lower" name="battery-lower" type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="battery-upper" name="battery-upper" type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <!-- BOTTOM ROW OF FORM -->
-            <div class="row">
-                <div class="col form-group">
-                    <label for="range-lower">WLTP range (Km)</label>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" id="range-lower" name="range-lower" type="number">
-                        </div>
-                        <div class="col">
-                            <input class="form-control" id="range-upper" name="range-upper" type="number">
-                        </div>
-                    </div>
-                </div>
-                <div class="col form-group">
-                    <label for="cost-lower">Cost</label>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" id="cost-lower" name="cost-lower" type="number">
-                        </div>
-                        <div class="col">
-                            <input class="form-control" id="cost-upper" name="cost-upper" type="number">
-                        </div>
-                    </div>
-                </div>
-                <div class="col form-group">
-                    <label for="power-lower">Power (Kw)</label>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" id="power-lower" name="power-lower" type="number">
-                        </div>
-                        <div class="col">
-                            <input class="form-control" id="power-upper" name="power-upper" type="number">
-                        </div>
-                    </div>
-                </div>
-                <div class="col form-group">
-                    <label></label>
-                    <input class="form-control btn btn-primary" name="button" type="submit" value="Search">
-                </div>
-            </div>
+<!--            &lt;!&ndash; BOTTOM ROW OF FORM &ndash;&gt;-->
+<!--            <div class="row">-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="range-lower">WLTP range (Km)</label>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="range-lower" name="range-lower" type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="range-upper" name="range-upper" type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="cost-lower">Cost</label>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="cost-lower" name="cost-lower" type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="cost-upper" name="cost-upper" type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label for="power-lower">Power (Kw)</label>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="power-lower" name="power-lower" type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            <input class="form-control" id="power-upper" name="power-upper" type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col form-group">-->
+<!--                    <label></label>-->
+<!--                    <input class="form-control btn btn-primary" name="button" type="submit" value="Search">-->
+<!--                </div>-->
+<!--            </div>-->
 
-        </form>
-    </div>
+<!--        </form>-->
+<!--    </div>-->
 
-</section>
+<!--</section>-->
 <!-- END FORM FOR QUERYING DATABASE FOR THE ELECTRIC VEHICLES -->
+
 <!-- FEATURED VEHICLES SECTION -->
 <section style="padding: 150px 0; background: whitesmoke">
     <div class="container">
